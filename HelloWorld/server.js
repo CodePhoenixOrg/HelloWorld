@@ -5,7 +5,7 @@ var app = require('./lib/web_application');
 
 app.create('http://sample.loc', port, function (req, res) {
 
-    app.include(__dirname, 'Page1.html', function (err, data) {
+    app.getView('Page1.html', function (err, data) {
 
         if (!err) {
             console.log('received data: ' + data);

@@ -28,4 +28,15 @@ webApplication.include = function (directory, filename, callback) {
 
 };
 
+webApplication.getView = function (viewname, callback) {
+
+    webApplication.include(__dirname, '../views/' + viewname, function (err, data) {
+        if (typeof callback === 'function') {
+            callback.call(this, err, data);
+        }
+    });
+
+};
+
+
 module.exports = webApplication; 

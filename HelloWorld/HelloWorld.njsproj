@@ -33,7 +33,6 @@
     </Compile>
     <Compile Include="server.js" />
     <Content Include="package.json" />
-    <Content Include="Page1.html" />
     <Content Include="README.md" />
     <Content Include="views\Page1.html">
       <SubType>Code</SubType>
