@@ -1,11 +1,11 @@
 ﻿'use strict';
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
 
-var WebApplication = function () { };
+var webApplication = function () {
 
-WebApplication.create = function(url, port, callback) {
+};
+
+webApplication.create = function (url, port, callback) {
+    var http = require('http');
     http.createServer(function (req, res) {
         if (typeof callback === 'function') {
             callback.call(this, req, res);
@@ -13,14 +13,19 @@ WebApplication.create = function(url, port, callback) {
     }).listen(port);
 };
 
-WebApplication.include = function (directory, filename, callback) {
-    var filename = path.join(directory, filename);
+webApplication.include = function (directory, filename, callback) {
+    var fs = require('fs');
+    var path = require('path');
 
-    fs.readFile(filename, {'encoding': 'utf-8'}, function (err, data) {
+    var filePath = path.join(directory, filename);
+
+    fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
         if (typeof callback === 'function') {
             callback.call(this, err, data);
         }
+
     });
+
 };
 
-module.exports = WebApplication;
+module.exports = webApplication; 
