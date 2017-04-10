@@ -1,0 +1,2 @@
+G:\David\Projets\CodePhoenix.net\SDK\javascript\HelloWorld\HelloWorld\obj\Debug\HelloWorld.njsprojResolveAssemblyReference.cache
+G:\David\Projets\CodePhoenix.net\SDK\javascript\HelloWorld\HelloWorld\bin\Microsoft.NodejsTools.WebRole.dll
