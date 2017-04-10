@@ -1,1 +1,2 @@
-http://stackoverflow.com/questions/17478566/using-node-js-to-serve-up-basic-web-page-with-css-and-js-includes
+requête Google "node js send html instead of css"
+http://stackoverflow.com/questions/28822034/simple-node-js-server-that-sends-htmlcss-as-response
