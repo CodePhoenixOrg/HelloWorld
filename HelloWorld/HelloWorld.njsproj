@@ -36,7 +36,6 @@
     <Compile Include="lib\core\url.js" />
     <Compile Include="lib\core\utils.js" />
     <Compile Include="lib\global.js" />
-    <Compile Include="lib\jphink.js" />
     <Compile Include="lib\mvc\controller.js" />
     <Compile Include="lib\mvc\view.js" />
     <Compile Include="lib\web\rest.js" />
@@ -60,13 +59,13 @@
     <Content Include="app\rest\playlist.class.php" />
     <Content Include="app\rest\track.class.php" />
     <Content Include="app\rest\user.class.php" />
-    <Content Include="app\views\home.html" />
-    <Content Include="app\views\info.phtml" />
+    <Content Include="app\views\index.html" />
     <Content Include="css\images\add.png" />
     <Content Include="css\images\delete.png" />
     <Content Include="css\images\favorite.png" />
     <Content Include="css\index.css" />
-    <Content Include="home.html" />
+    <Content Include="app\views\home.html" />
+    <Content Include="favicon.ico" />
     <Content Include="install\httpd-soundlib.conf" />
     <Content Include="install\SoundLib.mwb" />
     <Content Include="install\SoundLib.pdf" />
@@ -75,7 +74,6 @@
     <Content Include="install\soundlib_init.sql" />
     <Content Include="install\soundlib_struct.sql" />
     <Content Include="lib\controller.php" />
-    <Content Include="lib\js_starter.php" />
     <Content Include="lib\request.php" />
     <Content Include="lib\response.php" />
     <Content Include="lib\restRouter.php" />
@@ -83,7 +81,7 @@
     <Content Include="lib\webRouter.php" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="views\Page1.html">
+    <Content Include="app\views\hello.html">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
@@ -105,7 +103,6 @@
     <Folder Include="lib\web\ui\" />
     <Folder Include="lib\web\ui\plugin\" />
     <Folder Include="log\" />
-    <Folder Include="views\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
