@@ -18,8 +18,11 @@ WebApplication.create = function (url, port, callback) {
             {
                 '.html': 'text/html',
                 '.css': 'text/css',
-                '.js': 'text/javascript',
-                '.ico': 'applicaion/icon',
+                '.js': 'application/javascript',
+                '.json': 'application/json',
+                '.xml': 'application/xml',
+                '.zip': 'application/zip',
+                '.ico': 'image/vnd.microsoft.icon',
                 '.jpg': 'image/jpg',
                 '.png': 'image/png'
             }[url.substring(dotoffset)];
@@ -27,16 +30,14 @@ WebApplication.create = function (url, port, callback) {
         url = (mimetype === 'text/html') ? '../app/views/' + url : '../' + url; 
         WebApplication.include(__dirname, url, function (err, data) {
             if (!err) {
-                console.log(req.headers);
-                console.log('received data: ' + data);
+                if (typeof callback === 'function') {
+                    callback.call(this, req, res, data);
+                }
                 res.write(data);
                 res.end();
             } else {
                 console.log(err);
             }
-            //if (typeof callback === 'function') {
-            //    callback.call(this, err, data);
-            //}
         });
     }).listen(port);
 }; 
