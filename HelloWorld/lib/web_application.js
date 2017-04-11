@@ -19,7 +19,7 @@ WebApplication.create = function (url, port, callback) {
                 if (typeof callback === 'function') {
                     callback.call(this, req, res, data);
                 }
-                res.write(data);
+                res.write(data.stream);
                 res.end();
             } else {
                 console.log(err);
@@ -34,7 +34,7 @@ WebApplication.include = function (directory, url, callback) {
 
     var url = (url === '/') ? 'index.html' : url;
     var dotoffset = url.lastIndexOf('.');
-    var extension = (dotoffset === -1) ? url.substring(dotoffset) : '';
+    var extension = (dotoffset === -1) ? '' : url.substring(dotoffset);
     var mime = (extension === '') ? ['text/plain', 'utf-8'] :
         {
             '.html': ['text/html', 'utf-8'],
