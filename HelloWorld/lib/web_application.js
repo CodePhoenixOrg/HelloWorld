@@ -12,24 +12,10 @@ WebApplication.create = function (url, port, callback) {
     http.createServer(function (req, res) {
         //console.log(req.headers);
         WebApplication.headers = req.rawHeaders;
-        var url = (req.url === '/') ? 'index.html' : req.url;
-        var dotoffset = url.lastIndexOf('.');
-        var mimetype = (dotoffset === -1) ? 'text/html' :
-            {
-                '.html': 'text/html',
-                '.css': 'text/css',
-                '.js': 'application/javascript',
-                '.json': 'application/json',
-                '.xml': 'application/xml',
-                '.zip': 'application/zip',
-                '.ico': 'image/vnd.microsoft.icon',
-                '.jpg': 'image/jpg',
-                '.png': 'image/png'
-            }[url.substring(dotoffset)];
-        res.writeHead(200, { 'Content-Type': mimetype });
-        url = (mimetype === 'text/html') ? '../app/views/' + url : '../' + url; 
-        WebApplication.include(__dirname, url, function (err, data) {
+        
+        WebApplication.include(__dirname, req.url, function (err, data) {
             if (!err) {
+                res.writeHead(200, { 'Content-Type': data.mimetype });
                 if (typeof callback === 'function') {
                     callback.call(this, req, res, data);
                 }
@@ -42,13 +28,38 @@ WebApplication.create = function (url, port, callback) {
     }).listen(port);
 }; 
 
-WebApplication.include = function (directory, filename, callback) {
+WebApplication.include = function (directory, url, callback) {
     var fs = require('fs');
     var path = require('path');
 
-    var filePath = path.join(directory, filename);
+    var url = (url === '/') ? 'index.html' : url;
+    var dotoffset = url.lastIndexOf('.');
+    var extension = (dotoffset === -1) ? url.substring(dotoffset) : '';
+    var mime = (extension === '') ? ['text/plain', 'utf-8'] :
+        {
+            '.html': ['text/html', 'utf-8'],
+            '.css': ['text/css', 'utf-8'],
+            '.js': ['application/javascript', 'utf-8'],
+            '.json': ['application/json', 'utf-8'],
+            '.xml': ['application/xml', 'utf-8'],
+            '.zip': ['application/zip', ''],
+            '.ico': ['image/vnd.microsoft.icon', ''],
+            '.jpg': ['image/jpg', ''],
+            '.png': ['image/png', '']
+        }[extension];
 
-    fs.readFile(filePath, { encoding: 'utf-8' }, function (err, data) {
+    url = (extension === '.html') ? '../app/views/' + url : '../' + url;
+
+    var data = [];
+    data.encoding = mime[1];
+    data.mimetype = mime[0];
+    var encoding = (data.encoding !== '') ? { 'encoding': data.encoding } : null;
+
+    var filePath = path.join(directory, url);
+
+    fs.readFile(filePath, encoding, function (err, stream) {
+
+        data.stream = stream;
         if (typeof callback === 'function') {
             callback.call(this, err, data);
         }
@@ -57,16 +68,6 @@ WebApplication.include = function (directory, filename, callback) {
 
 };
 
-WebApplication.load = function (url, callback) {
-
- 
-    WebApplication.include(__dirname, '../app/views/' + viewname, function (err, data) {
-        if (typeof callback === 'function') {
-            callback.call(this, err, data);
-        }
-    });
-
-};
 
 WebApplication.getView = function (viewname, callback) {
 
