@@ -22,7 +22,7 @@ Phink.Web.UI.Table.prototype.bind = function(tableId, data, callback) {
         var row = JSON.parse(values[j]);
         for (var i=0; i < colNum; i++) {
             var template = templates[i];
-            var html = TPlugin.applyTemplate(templates, row, i);
+            var html = Phink.Web.UI.Plugin.applyTemplate(templates, row, i);
             if(template.enabled) {
                 $(tableId + 'td' + (i + colNum * j).toString()).html(html);
             }

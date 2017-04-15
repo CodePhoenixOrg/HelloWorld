@@ -61,7 +61,7 @@ Phink.Web.UI.Accordion.prototype.bind = function(container, data, callback) {
             }
             //html = this.applyTemplate(templates[j], colNum, row, i);
             //html = row[index];
-            html = TPlugin.applyTemplate(templates, row, j);
+            html = Phink.Web.UI.Plugin.applyTemplate(templates, row, j);
 
             if(level === 0) {
                 if(i > 0) {
