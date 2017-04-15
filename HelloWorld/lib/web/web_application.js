@@ -1,26 +1,30 @@
 ﻿'use strict';
-var WebObject = require(__dirname + '/web_object.js');
-var RestRouter = require(__dirname + '/rest/rest_router.js');
+var NestJS = NestJS || {}
+NestJS.Web = NestJS.Web || {}
+NestJS.Rest = NestJS.Rest || {}
 
-var WebApplication = function () {
+NestJS.Web.Object = require('./web_object.js');
+NestJS.Rest.Router = require('../rest/rest_router.js');
+
+NestJS.Web.Application = function () {
 
 };
 
-WebApplication.prototype = new WebObject();
-WebApplication.prototype.constructor = WebApplication;
+NestJS.Web.Application.prototype = new NestJS.Web.Object();
+NestJS.Web.Application.prototype.constructor = NestJS.Web.Application;
 
-WebApplication.headers = {};
+NestJS.Web.Application.headers = {};
 
-WebApplication.create = function (url, port, callback) {
+NestJS.Web.Application.create = function (url, port, callback) {
     var http = require('http');
 
     http.createServer(function (req, res) {
         //console.log(req.headers);
-        WebApplication.headers = req.rawHeaders;
+        NestJS.Web.Application.headers = req.rawHeaders;
 
         if (req.url.indexOf("/api/") > -1) {
 
-            var router = new RestRouter(req, res);
+            var router = new NestJS.Rest.Router(req, res);
 
             if (router.translate()) {
 
@@ -29,7 +33,7 @@ WebApplication.create = function (url, port, callback) {
 
 
         } else {
-            WebObject.include(__dirname, req.url, function (err, data) {
+            NestJS.Web.Object.include(__dirname, req.url, function (err, data) {
                 if (!err) {
                     res.writeHead(200, { 'Content-Type': data.mimetype });
                     if (typeof callback === 'function') {
@@ -46,4 +50,4 @@ WebApplication.create = function (url, port, callback) {
     }).listen(port);
 }; 
 
-module.exports = WebApplication; 
+module.exports = NestJS.Web.Application; 

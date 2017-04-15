@@ -6,4 +6,7 @@
   "author": {
     "name": "dpjb"
   }
+  "dependencies": {
+    "mysql": "^2.13.0"
+  }
 }

@@ -1,43 +1,18 @@
 'use strict';
 
-var WebObject = function() {
-    this.id = '';
-    this.name = '';
-    this.parent = null;
-    
+var NestJS = NestJS || {}
+NestJS.Web = NestJS.Web || {}
+
+NestJS.Object = require(__dirname + '/../core/object.js');
+
+NestJS.Web.Object = function (parent) {
+    this.setParent(parent);
 };
 
-WebObject.prototype.setId = function(value) {
-    this.id = value;
-    
-    return this;
-};
+NestJS.Web.Object.prototype = new NestJS.Object();
+NestJS.Web.Object.prototype.constructor = NestJS.Web.Object;
 
-WebObject.prototype.getId = function() {
-    return this.id;
-};
-
-WebObject.prototype.setName = function(value) {
-    this.name = value;
-    
-    return this;
-};
-
-WebObject.prototype.getName = function() {
-    return this.name;
-};
-
-//WebObject.prototype.setParent = function(value) {
-//    this.parent = value;
-//    
-//    return this;
-//};
-
-WebObject.prototype.getParent = function() {
-    return this.parent;
-};
-
-WebObject.include = function (directory, url, callback) {
+NestJS.Web.Object.include = function (directory, url, callback) {
     var fs = require('fs');
     var path = require('path');
 
@@ -57,7 +32,7 @@ WebObject.include = function (directory, url, callback) {
             '.png': ['image/png', '']
         }[extension];
 
-    url = (extension === '.html') ? '../app/views/' + url : '../' + url;
+    url = (extension === '.html') ? '../../app/views/' + url : '../../' + url;
 
     var data = [];
     data.encoding = mime[1];
@@ -77,4 +52,4 @@ WebObject.include = function (directory, url, callback) {
 
 };
 
-module.exports = WebObject;
+module.exports = NestJS.Web.Object;

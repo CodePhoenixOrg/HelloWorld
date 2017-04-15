@@ -18,7 +18,7 @@
     <OutputPath>.</OutputPath>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
-    <NodejsPort>1337</NodejsPort>
+    <NodejsPort>80</NodejsPort>
     <StartWebBrowser>true</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -29,6 +29,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="js\index.js" />
+    <Compile Include="js\r.js" />
+    <Compile Include="js\soundlib.js" />
     <Compile Include="lib\client\core\console.js" />
     <Compile Include="lib\client\core\debug.js" />
     <Compile Include="lib\client\core\object.js" />
@@ -45,13 +47,14 @@
     <Compile Include="lib\client\web\ui\plugin\table.js" />
     <Compile Include="lib\client\web\web_application.js" />
     <Compile Include="lib\client\web\web_object.js" />
-    <Compile Include="lib\web_object.js" />
-    <Compile Include="lib\web_application.js">
+    <Compile Include="lib\core\object.js" />
+    <Compile Include="lib\web\web_object.js" />
+    <Compile Include="lib\web\web_application.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="server.js" />
     <Content Include="app\controllers\home.class.php" />
-    <Content Include="app\data\connection.class.php" />
+    <Content Include="app\data\connection.js" />
     <Content Include="app\models\collection.class.php" />
     <Content Include="app\models\playlist.class.php" />
     <Content Include="app\models\track.class.php" />
@@ -103,6 +106,8 @@
     <Folder Include="lib\client\core\" />
     <Folder Include="lib\client\mvc\" />
     <Folder Include="lib\client\" />
+    <Folder Include="lib\core\" />
+    <Folder Include="lib\web\" />
     <Folder Include="lib\rest\" />
     <Folder Include="lib\client\web\" />
     <Folder Include="lib\client\web\ui\" />

@@ -1,12 +1,15 @@
 'use strict';
-var WebObject = require('../web_object.js');
+
+var NestJS = NestJS || {}
+NestJS.Rest = NestJS.Rest || {}
+NestJS.Web = NestJS.Web || {}
+
+NestJS.Web.Object = require('../web/web_object.js');
+
 var Path = require('path');
 var File = require('fs');
 
-var RestRouter = function (req, res) {
-
-    
-    //put your code here
+NestJS.Rest.Router = function (req, res) {
     this.application = null;
     this.apiName = '';
     this.className = '';
@@ -18,10 +21,10 @@ var RestRouter = function (req, res) {
     this.response = res;
 }
 
-RestRouter.prototype = new WebObject();
-RestRouter.prototype.constructor = RestRouter;
+NestJS.Rest.Router.prototype = new NestJS.Web.Object();
+NestJS.Rest.Router.prototype.constructor = NestJS.Rest.Router;
 
-RestRouter.prototype.translate = function()
+NestJS.Rest.Router.prototype.translate = function()
 {
 	//var nsParts = ('\\', __NAMESPACE__);
 	//this.baseNamespace = array_shift(nsParts);
@@ -39,7 +42,7 @@ RestRouter.prototype.translate = function()
     return File.exists(this.apiFileName);
 }
 
-RestRouter.prototype.dispatch = function()
+NestJS.Rest.Router.prototype.dispatch = function()
 {
     var data = [];
     var method = this.request.method;
@@ -101,4 +104,4 @@ RestRouter.prototype.dispatch = function()
 
 }
 
-module.exports = RestRouter;
+module.exports = NestJS.Rest.Router;

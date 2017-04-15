@@ -1,9 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 var getCollection = function() {
     coll.fetch(function(data) {
         var result = '<ol>'
@@ -62,7 +56,7 @@ var coll = new SoundLib.Collection()
 pl.afterAddTrack = getUserFavorites
 pl.afterRemoveTrack = getUserFavorites
 
-SoundLib.DOM.ready(function() {
+Phink.DOM.ready(function() {
     
     usr.getInfo()
 //    getCollection()
