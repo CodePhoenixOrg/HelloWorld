@@ -29,22 +29,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="js\index.js" />
-    <Compile Include="lib\core\console.js" />
-    <Compile Include="lib\core\debug.js" />
-    <Compile Include="lib\core\object.js" />
-    <Compile Include="lib\core\registry.js" />
-    <Compile Include="lib\core\url.js" />
-    <Compile Include="lib\core\utils.js" />
-    <Compile Include="lib\global.js" />
-    <Compile Include="lib\mvc\controller.js" />
-    <Compile Include="lib\mvc\view.js" />
-    <Compile Include="lib\web\rest.js" />
-    <Compile Include="lib\web\ui\plugin.js" />
-    <Compile Include="lib\web\ui\plugin\accordion.js" />
-    <Compile Include="lib\web\ui\plugin\list.js" />
-    <Compile Include="lib\web\ui\plugin\table.js" />
-    <Compile Include="lib\web\web_application.js" />
-    <Compile Include="lib\web\web_object.js" />
+    <Compile Include="lib\client\core\console.js" />
+    <Compile Include="lib\client\core\debug.js" />
+    <Compile Include="lib\client\core\object.js" />
+    <Compile Include="lib\client\core\registry.js" />
+    <Compile Include="lib\client\core\url.js" />
+    <Compile Include="lib\client\core\utils.js" />
+    <Compile Include="lib\client\global.js" />
+    <Compile Include="lib\client\mvc\controller.js" />
+    <Compile Include="lib\client\mvc\view.js" />
+    <Compile Include="lib\client\web\rest.js" />
+    <Compile Include="lib\client\web\ui\plugin.js" />
+    <Compile Include="lib\client\web\ui\plugin\accordion.js" />
+    <Compile Include="lib\client\web\ui\plugin\list.js" />
+    <Compile Include="lib\client\web\ui\plugin\table.js" />
+    <Compile Include="lib\client\web\web_application.js" />
+    <Compile Include="lib\client\web\web_object.js" />
+    <Compile Include="lib\web_object.js" />
     <Compile Include="lib\web_application.js">
       <SubType>Code</SubType>
     </Compile>
@@ -56,6 +57,7 @@
     <Content Include="app\models\track.class.php" />
     <Content Include="app\models\user.class.php" />
     <Content Include="app\rest\collection.class.php" />
+    <Content Include="app\rest\playlist.js" />
     <Content Include="app\rest\playlist.class.php" />
     <Content Include="app\rest\track.class.php" />
     <Content Include="app\rest\user.class.php" />
@@ -77,6 +79,7 @@
     <Content Include="lib\request.php" />
     <Content Include="lib\response.php" />
     <Content Include="lib\restRouter.php" />
+    <Content Include="lib\rest\rest_router.js" />
     <Content Include="lib\view.php" />
     <Content Include="lib\webRouter.php" />
     <Content Include="package.json" />
@@ -97,11 +100,13 @@
     <Folder Include="install\" />
     <Folder Include="js\" />
     <Folder Include="lib\" />
-    <Folder Include="lib\core\" />
-    <Folder Include="lib\mvc\" />
-    <Folder Include="lib\web\" />
-    <Folder Include="lib\web\ui\" />
-    <Folder Include="lib\web\ui\plugin\" />
+    <Folder Include="lib\client\core\" />
+    <Folder Include="lib\client\mvc\" />
+    <Folder Include="lib\client\" />
+    <Folder Include="lib\rest\" />
+    <Folder Include="lib\client\web\" />
+    <Folder Include="lib\client\web\ui\" />
+    <Folder Include="lib\client\web\ui\plugin\" />
     <Folder Include="log\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->

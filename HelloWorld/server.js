@@ -5,6 +5,6 @@ var app = require('./lib/web_application');
 
 app.create('http://sample.loc', port, function (req, res, data) {
     console.log(req.headers);
-    console.log('received data: ' + data);
+    console.log('received data: ' + data.stream);
 
 });
