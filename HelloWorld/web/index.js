@@ -1,7 +1,7 @@
 'use strict';
 
-var port = process.env.PORT || 80;
-var app = require('./lib/web/web_application');
+var port = process.env.PORT || 1234;
+var app = require('../lib/web/web_application');
 
 app.create('http://sample.loc', port, function (req, res, data) {
     console.log(req.headers);

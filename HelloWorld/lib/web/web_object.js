@@ -32,7 +32,7 @@ NestJS.Web.Object.include = function (directory, url, callback) {
             '.png': ['image/png', '']
         }[extension];
 
-    url = (extension === '.html') ? '../../app/views/' + url : '../../' + url;
+    url = (extension === '.html') ? '../../app/views/' + url : '../../web/' + url;
 
     var data = [];
     data.encoding = mime[1];

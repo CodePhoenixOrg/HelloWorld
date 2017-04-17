@@ -10,8 +10,8 @@ Phink.Web.Rest = (function() {
     /**
      * Performs a HEAD request and return the result to a callback function
      * 
-     * @param {type} url
-     * @param {type} callback
+     * @param {string} url
+     * @param {function} callback
      * @returns JSON stream
      */
     F.prototype.head = function(url, callback) {
@@ -33,8 +33,8 @@ Phink.Web.Rest = (function() {
     /**
      * Performs a GET request and return the result to a callback function
      * 
-     * @param {type} url
-     * @param {type} callback
+     * @param {string} url
+     * @param {function} callback
      * @returns JSON stream
      */
      F.prototype.get = function(url, callback) {
@@ -56,8 +56,9 @@ Phink.Web.Rest = (function() {
     /**
      * Performs a POST request and return the result to a callback function
      * 
-     * @param {type} url
-     * @param {type} callback
+     * @param {string} url
+     * @param {array} data
+     * @param {function} callback
      * @returns JSON stream on callback
      */
      F.prototype.post = function(url, data, callback) {
@@ -90,8 +91,9 @@ Phink.Web.Rest = (function() {
     /**
      * Performs a PATCH request and return the result to a callback function
      * 
-     * @param {type} url
-     * @param {type} callback
+     * @param {string} url
+     * @param {array} data
+     * @param {function} callback
      * @returns JSON stream on callback
      */
     F.prototype.patch = function(url, data, callback) {
@@ -124,8 +126,9 @@ Phink.Web.Rest = (function() {
     /**
      * Performs a PUT request and return the result to a callback function
      * 
-     * @param {type} url
-     * @param {type} callback
+     * @param {string} url
+     * @param {array} data
+     * @param {function} callback
      * @returns JSON stream on callback
      */
     F.prototype.put = function(url, data, callback) {
@@ -148,8 +151,8 @@ Phink.Web.Rest = (function() {
     /**
      * Performs a DELETE request and return the result to a callback function
      * 
-     * @param {type} url
-     * @param {type} callback
+     * @param {string} url
+     * @param {function} callback
      * @returns JSON stream on callback
      */
     F.prototype.delete = function(url, callback) {

@@ -3,7 +3,7 @@ var Phink = Phink || {}
 Phink.Web = Phink.Web || {}
 
 Phink.Web.Object = function(domain, isSSL) {
-    TObject.call(this);
+    Phink.Object.call(this);
     
     this.isSSL = isSSL;
     this.origin = '';
@@ -41,7 +41,7 @@ Phink.Web.Object.prototype.getToken = function() {
 };
 
 Phink.Web.Object.prototype.getPath = function(url, domain) {
-    this.url = new TUrl(url, domain, this.isSSL);
+    this.url = new Phink.Url(url, domain, this.isSSL);
     return this.url.toString();
 };
 
@@ -49,15 +49,9 @@ Phink.Web.Object.prototype.getUrl = function() {
     return this.url;
 };
 
-Phink.Web.Object.prototype.getJSON = function(
-    url, // Url du webService
-    postData, // Tableau JSON des donn�es � poster au webserice
-    callback // fonction qui g�re le retour du webservice
-) {
-    //$("body").toggleClass('onLoad');
-//        spinner.spin();
-    postData.token = TRegistry.getToken();
-    this.origin = TRegistry.getOrigin();
+Phink.Web.Object.prototype.getJSON = function(url, postData, callback) {
+    postData.token = Phink.Registry.getToken();
+    this.origin = Phink.Registry.getOrigin();
     
     var urls = this.getPath(url, this.domain);
     var xhr = new XMLHttpRequest()
@@ -83,8 +77,8 @@ Phink.Web.Object.prototype.getJSON = function(
                     if(data.error !== undefined) {
                         debugLog('Error : ' + data.error);
                     } else {
-                        TRegistry.setToken(data.token);
-                        TRegistry.setOrigin(xhr.getResponseHeader('origin'));
+                        Phink.Registry.setToken(data.token);
+                        Phink.Registry.setOrigin(xhr.getResponseHeader('origin'));
                         callback.call(this, data, xhr.statusText, xhr);
                     }
                 }
@@ -99,8 +93,8 @@ Phink.Web.Object.prototype.getJSON = function(
 };
 
 Phink.Web.Object.prototype.getJSONP = function(url, postData, callBack) {
-    postData.token = TRegistry.getToken();
-    this.origin = TRegistry.getOrigin();
+    postData.token = Phink.Registry.getToken();
+    this.origin = Phink.Registry.getOrigin();
     var urls = this.getPath(url, this.domain);
 
     $.ajax({
@@ -111,8 +105,8 @@ Phink.Web.Object.prototype.getJSONP = function(url, postData, callBack) {
         async: true
     }).done(function(data, textStatus, xhr) {
         try {
-            TRegistry.setToken(data.token);
-            TRegistry.setOrigin(xhr.getResponseHeader('origin'));
+            Phink.Registry.setToken(data.token);
+            Phink.Registry.setOrigin(xhr.getResponseHeader('origin'));
 
             if($.isFunction(callBack)) {
                 callBack.call(this, data, textStatus, xhr);

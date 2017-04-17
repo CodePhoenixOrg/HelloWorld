@@ -7,11 +7,11 @@
 
 var Phink = function() {}
 
-Phink.DOM = function () {}
+Phink.DOM = Phink.DOM || {}
 
 Phink.DOM.ready = function (f){/in/.test(document.readyState)?setTimeout('Phink.DOM.ready('+f+')',9):f()}
 
-function include(file) {
+Phink.include = function (file) {
     var myScript =  document.createElement("script")
     myScript.src = file
     myScript.type = "text/javascript"
