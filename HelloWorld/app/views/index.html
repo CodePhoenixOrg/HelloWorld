@@ -3,16 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <title>Hello World</title>
-    <script type="text/javascript" src="/phink/main.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" data-init="printHello" data-sources="/js/main.js" src="/phink/main.js"></script>
 </head>
 <body>
     <h1>It works!</h1>
     <div id="hello"></div>
-    <script type="text/javascript">
-        Phink.DOM.ready(function() {
-            printHello();
-        })
-    </script>
 </body>
 </html>
