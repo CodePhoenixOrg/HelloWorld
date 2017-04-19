@@ -5,6 +5,8 @@ var app = require('../lib/web/web_application');
 
 app.create('http://sample.loc', port, function (req, res, data) {
     console.log(req.headers);
-    console.log('received data: ' + data.stream);
+    if(data.mimetype !== 'image/vnd.microsoft.icon') {
+        console.log('received data: ' + data.stream);
+    }
 
 });
