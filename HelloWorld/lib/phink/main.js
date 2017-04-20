@@ -4,13 +4,31 @@ Phink.DOM.ready = function (f){/in/.test(document.readyState)?setTimeout('Phink.
 
 var loaded = [];
 
-Phink.include = function (file) {
-    loaded[file] = 'false';
+Phink.include = function (file, callback) {
+    loaded[file] = 'nop';
     var myScript =  document.createElement("script");
     myScript.src = file;
     myScript.type = "text/javascript";
-    myScript.addEventListener('load', function() {
-        loaded[file] = 'true';
+
+    myScript.addEventListener('load', function(e) {
+        var Fh = null;
+        var F = function (f) {
+            clearTimeout(Fh);
+            if(e.eventPhase !== 2) {
+                Fh = setTimeout('F('+f+')',9);
+            } else {
+                clearTimeout(Fh);
+                f();
+            }
+        };
+    
+        F(function() {
+            if(typeof callback === 'function') {
+                clearTimeout(Fh);
+                callback.call(null, e);    
+            }
+        })
+        
     })
     document.body.appendChild(myScript);
 }
@@ -21,25 +39,12 @@ var init = (mainNode.length > 0 && mainNode[0].dataset['init'] !== undefined) ? 
 
 Phink.DOM.ready(function () {
     for (var i = 0; i < sources.length; i++) {
-        Phink.include(sources[i]);
-    }
-
-    for (var i = 0; i < init.length; i++) {
-        //var f = function () { setTimeout(init[i], 10) };
-        console.log(init[i] + ':' + (typeof f));
-        
-        var F  = function (f){
-            if(/true/.test(loaded[f])) {
-                console.log(f + ':' + (typeof f));
-                setTimeout('F('+f+')',10) 
-            } else {
-                console.log(f + ':' + (typeof f));
-                setTimeout(f, 10)
-            };
-        }
-
-        F(init[i]);
-
+        Phink.include(sources[i], function(e) {
+            for (var i = 0; i < init.length; i++) {
+                var func = init[i] + "()";
+                var handle = setTimeout(func, 1);
+            }
+        });
     }
 })
 
