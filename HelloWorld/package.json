@@ -5,7 +5,7 @@
   "main": "server.js",
   "author": {
     "name": "dpjb"
-  }
+  },
   "dependencies": {
     "mysql": "^2.13.0"
   }
