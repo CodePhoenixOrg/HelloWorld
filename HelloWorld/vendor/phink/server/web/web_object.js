@@ -1,5 +1,4 @@
 'use strict';
-
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
 
@@ -32,7 +31,7 @@ NestJS.Web.Object.include = function (directory, url, callback) {
             '.png': ['image/png', '']
         }[extension];
 
-    url = (extension === '.html') ? '../../app/views/' + url : (extension === '.js' && url.lastIndexOf('/phink/') > -1) ? '../../lib/' + url : '../../web/' + url;
+    url = (extension === '.html') ? '../../../../app/views/' + url : (extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? '../../../../vendor/phink/phink.js' : '../../../../web/' + url;
 
 
     var data = [];

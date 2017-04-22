@@ -15,7 +15,7 @@ Phink.include = function (file, callback) {
     document.body.appendChild(tag);
 }
 
-var mainNode = document.querySelectorAll("script[src='/phink/main.js']");
+var mainNode = document.querySelectorAll("script[src='/phink.js']");
 var sources = (mainNode.length > 0 && mainNode[0].dataset['sources'] !== undefined) ? mainNode[0].dataset['sources'].split(";") : [];
 var init = (mainNode.length > 0 && mainNode[0].dataset['init'] !== undefined) ? mainNode[0].dataset['init'] : null;
 

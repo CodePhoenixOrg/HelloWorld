@@ -1,13 +1,19 @@
 ﻿'use strict';
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
-NestJS.Rest = NestJS.Rest || {}
+NestJS.Rest = NestJS.Rests || {}
 
 NestJS.Web.Object = require('./web_object.js');
 NestJS.Rest.Router = require('../rest/rest_router.js');
 
-NestJS.Web.Application = function () {
+var bootstrap = require('../bootstrap');
 
+
+var path = require('path');
+var file = require('fs');
+
+NestJS.Web.Application = function () {
+    
 };
 
 NestJS.Web.Application.prototype = new NestJS.Web.Object();
@@ -25,12 +31,9 @@ NestJS.Web.Application.create = function (url, port, callback) {
         if (req.url.indexOf("/api/") > -1) {
 
             var router = new NestJS.Rest.Router(req, res);
-
             if (router.translate()) {
-
                 router.dispatch();
             }
-
 
         } else {
             NestJS.Web.Object.include(__dirname, req.url, function (err, data) {
