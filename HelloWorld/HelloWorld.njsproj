@@ -31,6 +31,7 @@
     <Compile Include="lib\client\starter.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="lib\phink\main.js" />
     <Compile Include="web\js\index.js" />
     <Compile Include="web\js\r.js" />
     <Compile Include="web\js\soundlib.js" />
@@ -101,6 +102,7 @@
     <Folder Include="app\models\" />
     <Folder Include="app\rest\" />
     <Folder Include="app\views\" />
+    <Folder Include="lib\client\" />
     <Folder Include="web\css\" />
     <Folder Include="web\css\images\" />
     <Folder Include="install\" />
