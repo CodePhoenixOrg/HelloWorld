@@ -28,34 +28,33 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="lib\client\starter.js">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="lib\phink\main.js" />
+    <Compile Include="vendor\phink\server\bootstrap.js" />
+    <Compile Include="vendor\phink\server\core.js" />
+    <Compile Include="vendor\phink\server\core\object.js" />
+    <Compile Include="vendor\phink\client\core\console.js" />
+    <Compile Include="vendor\phink\client\core\debug.js" />
+    <Compile Include="vendor\phink\client\core\object.js" />
+    <Compile Include="vendor\phink\client\core\registry.js" />
+    <Compile Include="vendor\phink\client\core\url.js" />
+    <Compile Include="vendor\phink\client\main.js" />
+    <Compile Include="vendor\phink\client\mvc\controller.js" />
+    <Compile Include="vendor\phink\client\mvc\view.js" />
+    <Compile Include="vendor\phink\client\utils\text.js" />
+    <Compile Include="vendor\phink\client\web\rest.js" />
+    <Compile Include="vendor\phink\client\web\ui\plugin.js" />
+    <Compile Include="vendor\phink\client\web\ui\plugin\accordion.js" />
+    <Compile Include="vendor\phink\client\web\ui\plugin\list.js" />
+    <Compile Include="vendor\phink\client\web\ui\plugin\table.js" />
+    <Compile Include="vendor\phink\client\web\web_application.js" />
+    <Compile Include="vendor\phink\client\web\web_object.js" />
+    <Compile Include="vendor\phink\server\rest\rest_router.js" />
+    <Compile Include="vendor\phink\tools\tools.js" />
+    <Compile Include="vendor\phink\server\utils\io.js" />
+    <Compile Include="vendor\phink\server\web\web_application.js" />
+    <Compile Include="vendor\phink\server\web\web_object.js" />
     <Compile Include="web\js\index.js" />
     <Compile Include="web\js\r.js" />
     <Compile Include="web\js\soundlib.js" />
-    <Compile Include="lib\phink\core\console.js" />
-    <Compile Include="lib\phink\core\debug.js" />
-    <Compile Include="lib\phink\core\object.js" />
-    <Compile Include="lib\phink\core\registry.js" />
-    <Compile Include="lib\phink\core\url.js" />
-    <Compile Include="lib\phink\core\utils.js" />
-    <Compile Include="lib\phink\global.js" />
-    <Compile Include="lib\phink\mvc\controller.js" />
-    <Compile Include="lib\phink\mvc\view.js" />
-    <Compile Include="lib\phink\web\rest.js" />
-    <Compile Include="lib\phink\web\ui\plugin.js" />
-    <Compile Include="lib\phink\web\ui\plugin\accordion.js" />
-    <Compile Include="lib\phink\web\ui\plugin\list.js" />
-    <Compile Include="lib\phink\web\ui\plugin\table.js" />
-    <Compile Include="lib\phink\web\web_application.js" />
-    <Compile Include="lib\phink\web\web_object.js" />
-    <Compile Include="lib\core\object.js" />
-    <Compile Include="lib\web\web_object.js" />
-    <Compile Include="lib\web\web_application.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="web\index.js" />
     <Content Include="app\controllers\home.class.php" />
     <Content Include="app\data\connection.js" />
@@ -68,12 +67,19 @@
     <Content Include="app\rest\playlist.class.php" />
     <Content Include="app\rest\track.class.php" />
     <Content Include="app\rest\user.class.php" />
+    <Content Include="app\views\default.html" />
+    <Content Include="app\views\home.html" />
     <Content Include="app\views\index.html" />
+    <Content Include="vendor\controller.php" />
+    <Content Include="vendor\request.php" />
+    <Content Include="vendor\response.php" />
+    <Content Include="vendor\restRouter.php" />
+    <Content Include="vendor\view.php" />
+    <Content Include="vendor\phink\server\web\webRouter.php" />
     <Content Include="web\css\images\add.png" />
     <Content Include="web\css\images\delete.png" />
     <Content Include="web\css\images\favorite.png" />
     <Content Include="web\css\index.css" />
-    <Content Include="app\views\home.html" />
     <Content Include="favicon.ico" />
     <Content Include="install\httpd-soundlib.conf" />
     <Content Include="install\SoundLib.mwb" />
@@ -82,18 +88,8 @@
     <Content Include="install\soundlib_data.sql" />
     <Content Include="install\soundlib_init.sql" />
     <Content Include="install\soundlib_struct.sql" />
-    <Content Include="lib\controller.php" />
-    <Content Include="lib\request.php" />
-    <Content Include="lib\response.php" />
-    <Content Include="lib\restRouter.php" />
-    <Content Include="lib\rest\rest_router.js" />
-    <Content Include="lib\view.php" />
-    <Content Include="lib\webRouter.php" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <Content Include="app\views\hello.html">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
@@ -102,21 +98,25 @@
     <Folder Include="app\models\" />
     <Folder Include="app\rest\" />
     <Folder Include="app\views\" />
-    <Folder Include="lib\client\" />
+    <Folder Include="vendor\" />
+    <Folder Include="vendor\phink\server\core\" />
+    <Folder Include="vendor\phink\server\" />
+    <Folder Include="vendor\phink\" />
+    <Folder Include="vendor\phink\client\" />
+    <Folder Include="vendor\phink\client\core\" />
+    <Folder Include="vendor\phink\client\mvc\" />
+    <Folder Include="vendor\phink\client\utils\" />
+    <Folder Include="vendor\phink\client\web\" />
+    <Folder Include="vendor\phink\client\web\ui\" />
+    <Folder Include="vendor\phink\client\web\ui\plugin\" />
+    <Folder Include="vendor\phink\server\rest\" />
+    <Folder Include="vendor\phink\tools\" />
+    <Folder Include="vendor\phink\server\utils\" />
+    <Folder Include="vendor\phink\server\web\" />
     <Folder Include="web\css\" />
     <Folder Include="web\css\images\" />
     <Folder Include="install\" />
     <Folder Include="web\js\" />
-    <Folder Include="lib\" />
-    <Folder Include="lib\phink\core\" />
-    <Folder Include="lib\phink\mvc\" />
-    <Folder Include="lib\phink\" />
-    <Folder Include="lib\core\" />
-    <Folder Include="lib\web\" />
-    <Folder Include="lib\rest\" />
-    <Folder Include="lib\phink\web\" />
-    <Folder Include="lib\phink\web\ui\" />
-    <Folder Include="lib\phink\web\ui\plugin\" />
     <Folder Include="log\" />
     <Folder Include="web\" />
   </ItemGroup>
