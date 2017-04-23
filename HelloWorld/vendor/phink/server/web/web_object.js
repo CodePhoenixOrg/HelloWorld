@@ -31,18 +31,14 @@ NestJS.Web.Object.include = function (directory, url, callback) {
             '.png': ['image/png', '']
         }[extension];
 
-    url = (extension === '.html') ? '../../../../app/views/' + url : (extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? '../../../../vendor/phink/phink.js' : '../../../../web/' + url;
-
+    var filePath = (extension === '.html') ? APP_ROOT + 'views/' + url : (extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? PHINK_ROOT + 'phink.js' : DOCUMENT_ROOT + url;
 
     var data = [];
     data.encoding = mime[1];
     data.mimetype = mime[0];
     var encoding = (data.encoding !== '') ? { 'encoding': data.encoding } : null;
 
-    var filePath = path.join(directory, url);
-
     fs.readFile(filePath, encoding, function (err, stream) {
-
         data.stream = stream;
         if (typeof callback === 'function') {
             callback.call(this, err, data);
