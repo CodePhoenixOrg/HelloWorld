@@ -30,8 +30,10 @@ NestJS.Web.Application.create = function (url, port, callback) {
 
         if (req.url.indexOf("/api/") > -1) {
 
+            console.log(req.url);
             var router = new NestJS.Rest.Router(req, res);
             if (router.translate()) {
+                console.log(req.url + '2');
                 router.dispatch();
             }
 

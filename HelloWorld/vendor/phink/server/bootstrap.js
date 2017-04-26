@@ -12,7 +12,7 @@ folders.pop();
 folders.pop();
 
 global.SITE_ROOT = folders.join(path.sep) + path.sep;
-global.APP_ROOT = SITE_ROOT + path.sep + 'app' + path.sep;
+global.APP_ROOT = SITE_ROOT + 'app' + path.sep;
 global.APP_DATA = APP_ROOT + 'data' + path.sep;
 global.DOCUMENT_ROOT = SITE_ROOT + 'web' + path.sep;
 

@@ -6,8 +6,8 @@ NestJS.Web = NestJS.Web || {}
 
 NestJS.Web.Object = require('../web/web_object.js');
 
-var Path = require('path');
-var File = require('fs');
+var path = require('path');
+var fs = require('fs');
 
 NestJS.Rest.Router = function (req, res) {
     this.application = null;
@@ -37,46 +37,56 @@ NestJS.Rest.Router.prototype.translate = function()
 	//this.apiName = preg_replace('/[^a-z0-9_]+/i','', array_shift(qParts));
 	this.className = this.apiName;
 
-    this.apiFileName = __dirname + Path.sep + '..' + Path.sep + '..' + Path.sep + 'app' + Path.sep + 'rest' + Path.sep + this.apiName + '.js';
-
-    return File.exists(this.apiFileName);
+    this.apiFileName = APP_ROOT + 'rest' + path.sep + this.apiName + '.js';
+    console.log(this.apiFileName);
+    
+    return fs.existsSync(this.apiFileName);
 }
 
 NestJS.Rest.Router.prototype.dispatch = function()
 {
     var data = [];
-    var method = this.request.method;
+    var method = this.request.method.toLowerCase();
+    console.log(method);
 
 	//var fqObject = this.baseNamespace + '\\Rest\\' + this.className;
     var fqObject = require(this.apiFileName);
 	//var instance = new fqObject();
-        
+
     var result = '';
+    if(typeof fqObject[method] === 'function') {
+        result = fqObject[method]();
+    } else {
+        console.log(this.className + '.' + method + ' not found');
+    }
 
-    var body = [];
-    var the = this;
-    this.request.on('error', function (err) {
-        console.error(err);
-    }).on('data', function (chunk) {
-        body.push(chunk);
-    }).on('end', function () {
-        body = Buffer.concat(body).toString();
-        the.request.on('error', function (err) {
-            console.error(err);
-        })
-        the.response.statusCode = 200;
-        the.response.setHeader('Content-Type', 'application/json');
+    this.response.write(JSON.stringify(result));
+    this.response.end();
 
-        var resBody = {
-            headers: the.request.headers,
-            method: the.request.method,
-            url: the.request.url,
-            body: result
-        };
+    // var body = [];
+    // var the = this;
+    // this.request.on('error', function (err) {
+    //     console.error(err);
+    // }).on('data', function (chunk) {
+    //     body.push(chunk);
+    // }).on('end', function () {
+    //     body = Buffer.concat(body).toString();
+    //     the.request.on('error', function (err) {
+    //         console.error(err);
+    //     })
+    //     the.response.statusCode = 200;
+    //     the.response.setHeader('Content-Type', 'application/json');
 
-        the.response.write(JSON.stringify(resBody));
-        the.response.end();
-    });
+    //     var resBody = {
+    //         headers: the.request.headers,
+    //         method: the.request.method,
+    //         url: the.request.url,
+    //         body: result
+    //     };
+
+    //     the.response.write(JSON.stringify(resBody));
+    //     the.response.end();
+    // });
 
  //   if (request_body !== undefined) {
  //       data = JSON.parse(request_body);

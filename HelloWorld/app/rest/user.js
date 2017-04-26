@@ -3,14 +3,14 @@
  *
  * @author David
  */
-var Playlist = function() {
+var User = function() {
 
 };
 
 //put your code here
-Playlist.get = function() {
+User.get = function() {
     //var result = Playlist::getUserFavorites($userId);
-    return {'playlist': 'live'};
+    return {'user': 'live'};
 }
  
 //Playlist.prototype.put function($playlist, $trackId) {
@@ -23,4 +23,4 @@ Playlist.get = function() {
 //    $this->response->setData($return);
 //}
 
-module.exports = Playlist;
+module.exports = User;

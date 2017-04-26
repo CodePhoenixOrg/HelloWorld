@@ -12,7 +12,17 @@ SoundLib.Data.Connection = function () {
 }
 
 SoundLib.Data.Connection.prototype = {
-    open: function (callback) {
+    direct: function (callback) {
+        var _conn = new mysql.createConnection({
+            host: 'localhost',
+            port: 3306,
+            user: 'djay',
+            password: 'demo',
+            database: 'soundlib'
+        });
+        return _conn;
+    },
+    tunneled: function (callback) {
         
         var key = fs.readFileSync(APP_DATA + "/ssh/id_rsa");
 
