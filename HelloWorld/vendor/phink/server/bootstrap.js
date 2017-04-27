@@ -42,7 +42,7 @@ BootStrap.init = function() {
     //     "web" + path.sep + "web_application.js", 
     // ];
     
-    var dir = __dirname + path.sep + ".." + path.sep + "client" + path.sep;
+    var dir = PHINK_ROOT + "client" + path.sep;
     var tree = [ 
         "main.js", 
         "core" + path.sep + "url.js", 

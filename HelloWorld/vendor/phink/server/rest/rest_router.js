@@ -24,7 +24,7 @@ NestJS.Rest.Router = function (req, res) {
 NestJS.Rest.Router.prototype = new NestJS.Web.Object();
 NestJS.Rest.Router.prototype.constructor = NestJS.Rest.Router;
 
-NestJS.Rest.Router.prototype.translate = function()
+NestJS.Rest.Router.prototype.translate = function(callback)
 {
 	//var nsParts = ('\\', __NAMESPACE__);
 	//this.baseNamespace = array_shift(nsParts);
@@ -40,7 +40,9 @@ NestJS.Rest.Router.prototype.translate = function()
     this.apiFileName = APP_ROOT + 'rest' + path.sep + this.apiName + '.js';
     console.log(this.apiFileName);
     
-    return fs.existsSync(this.apiFileName);
+    fs.exists(this.apiFileName, function(exists) {
+        callback.call(this, exists);
+    });
 }
 
 NestJS.Rest.Router.prototype.dispatch = function()
