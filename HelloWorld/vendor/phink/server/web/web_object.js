@@ -2,6 +2,9 @@
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
 
+var fs = require('fs');
+var path = require('path');
+
 NestJS.Object = require(__dirname + '/../core/object.js');
 
 NestJS.Web.Object = function (parent) {
@@ -11,37 +14,10 @@ NestJS.Web.Object = function (parent) {
 NestJS.Web.Object.prototype = new NestJS.Object();
 NestJS.Web.Object.prototype.constructor = NestJS.Web.Object;
 
-NestJS.Web.Object.include = function (directory, url, callback) {
-    var fs = require('fs');
-    var path = require('path');
-
-    var url = (url === '/') ? 'index.html' : url;
-    var dotoffset = url.lastIndexOf('.');
-    var extension = (dotoffset === -1) ? '' : url.substring(dotoffset);
-    var mime = (extension === '') ? ['text/plain', 'utf-8'] :
-        {
-            '.html': ['text/html', 'utf-8'],
-            '.css': ['text/css', 'utf-8'],
-            '.js': ['application/javascript', 'utf-8'],
-            '.json': ['application/json', 'utf-8'],
-            '.xml': ['application/xml', 'utf-8'],
-            '.zip': ['application/zip', ''],
-            '.ico': ['image/vnd.microsoft.icon', ''],
-            '.jpg': ['image/jpg', ''],
-            '.png': ['image/png', '']
-        }[extension];
-
-    var filePath = (extension === '.html') ? APP_ROOT + 'views/' + url : (extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? PHINK_ROOT + 'phink.js' : DOCUMENT_ROOT + url;
-
-    var data = [];
-    data.encoding = mime[1];
-    data.mimetype = mime[0];
-    var encoding = (data.encoding !== '') ? { 'encoding': data.encoding } : null;
-
-    fs.readFile(filePath, encoding, function (err, stream) {
-        data.stream = stream;
+NestJS.Web.Object.include = function (file, encoding, callback) {
+    fs.readFile(file, encoding, function (err, stream) {
         if (typeof callback === 'function') {
-            callback.call(this, err, data);
+            callback.call(this, err, stream);
         }
 
     });
