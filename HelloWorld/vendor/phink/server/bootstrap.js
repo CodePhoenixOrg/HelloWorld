@@ -14,6 +14,9 @@ folders.pop();
 global.SITE_ROOT = folders.join(path.sep) + path.sep;
 global.APP_ROOT = SITE_ROOT + 'app' + path.sep;
 global.APP_DATA = APP_ROOT + 'data' + path.sep;
+global.APP_MODELS = APP_ROOT + 'models' + path.sep;
+global.APP_CONTROLLERS = APP_ROOT + 'controllers' + path.sep;
+global.APP_VIEW = APP_ROOT + 'views' + path.sep;
 global.DOCUMENT_ROOT = SITE_ROOT + 'web' + path.sep;
 
 var BootStrap = function() {};
