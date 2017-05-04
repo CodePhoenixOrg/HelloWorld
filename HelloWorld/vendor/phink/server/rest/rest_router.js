@@ -58,12 +58,13 @@ NestJS.Rest.Router.prototype.dispatch = function()
     var result = '';
     if(typeof fqObject[method] === 'function') {
         //result = fqObject[method]();
-				var res = this.response;
+        var res = this.response;
         fqObject[method](function(data) {
-					res.write(JSON.stringify(data));
-					res.end();
+            res.writeHead(200, { 'Content-Type': 'application/json', 'charset': 'utf-8', 'Transfer-Encoding': 'utf-8' });
+            res.write(JSON.stringify(data));
+            res.end();
 
-				});
+        });
     } else {
         console.log(this.className + '.' + method + ' not found');
     }
