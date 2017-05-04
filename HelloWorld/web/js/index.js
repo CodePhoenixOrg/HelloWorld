@@ -1,7 +1,13 @@
+var currentUser = 1;
+var usr = new SoundLib.User(currentUser);
+var pl = new SoundLib.Playlist(currentUser);
+var coll = new SoundLib.Collection();
+
 var getCollection = function() {
     coll.fetch(function(data) {
+        console.log(data);
         var result = '<ol>';
-        data = data.collection;
+        //data = data.collection;
 
         for(var i = 0; i < data.length; i++) {
             var duration = data[i].duration;
@@ -25,7 +31,7 @@ var getCollection = function() {
 var getUserFavorites = function() {
     pl.getFavorites(function(data) {
         var result = '<ol>';
-        data = data.playlist;
+        //data = data.playlist;
         if(data[0].artist === null && data[0].title === null) {
             result = 'La playlist est vide';
         } else {
@@ -49,16 +55,14 @@ var getUserFavorites = function() {
     
 }
 
-var currentUser = 1;
-var usr = new SoundLib.User(currentUser);
-var pl = new SoundLib.Playlist(currentUser);
-var coll = new SoundLib.Collection();
 pl.afterAddTrack = getUserFavorites;
 pl.afterRemoveTrack = getUserFavorites;
 
+
+
 Phink.DOM.ready(function() {
     
-    usr.getInfo();
-//    getCollection()
+    //usr.getInfo();
+    getCollection()
     getUserFavorites();
 })

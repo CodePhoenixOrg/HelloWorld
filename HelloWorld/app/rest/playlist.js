@@ -1,3 +1,4 @@
+var pl = require(APP_MODELS + 'playlist');
 /**
  * Description of playlist
  *
@@ -8,9 +9,11 @@ var Playlist = function() {
 };
 
 //put your code here
-Playlist.get = function() {
-    //var result = Playlist::getUserFavorites($userId);
-    return {'playlist': 'live'};
+Playlist.get = function(callback) {
+    var userId = 1;
+    pl.getUserFavorites(userId, function(data) {
+        callback(data.playlist);
+    });
 }
  
 //Playlist.prototype.put function($playlist, $trackId) {

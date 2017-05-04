@@ -22,7 +22,7 @@ order by art_name, trk_title \
 ";
 
     var stmt = conn.direct();
-    stmt.connect(function(err) {});
+    stmt.connect();
     stmt.query(sql, function(err, rows, fields) {
       
       rows.forEach(function(element, i) {

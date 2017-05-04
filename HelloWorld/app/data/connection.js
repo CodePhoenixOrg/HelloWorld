@@ -18,7 +18,8 @@ SoundLib.Data.Connection.prototype = {
             port: 3306,
             user: 'djay',
             password: 'demo',
-            database: 'soundlib'
+            database: 'soundlib',
+            charset: 'utf8mb4'
         });
         return _conn;
     },
