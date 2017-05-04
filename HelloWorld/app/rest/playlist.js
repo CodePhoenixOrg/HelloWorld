@@ -12,7 +12,7 @@ var Playlist = function() {
 Playlist.get = function(callback) {
     var userId = 1;
     pl.getUserFavorites(userId, function(data) {
-        callback(data.playlist);
+        callback(data);
     });
 }
  

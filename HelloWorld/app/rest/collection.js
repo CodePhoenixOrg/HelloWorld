@@ -11,7 +11,7 @@ var Collection = function() {};
 Collection.get = function(callback) {
     //var result = Playlist::getUserFavorites($userId);
     coll.getAllTracks(function(data) {
-        callback(data.collection);
+        callback(data);
     });
 }
  

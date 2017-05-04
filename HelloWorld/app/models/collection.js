@@ -8,7 +8,7 @@ var Collection = function() {}
   
     //put your code here
 Collection.getAllTracks = function(callback) {
-    var result = [];
+    var result = {};
     result.collection = [];
   
     var Connection = require(APP_DATA + 'connection');

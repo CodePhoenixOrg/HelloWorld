@@ -9,7 +9,7 @@ var Playlist = function() {};
     //put your code here
 Playlist.getUserFavorites = function (userId, callback) {
     
-    var result = [];
+    var result = {};
     result.playlist = [];
     result.pid = 0;
 
@@ -23,14 +23,14 @@ left join playlist p on p.usr_id = u.usr_id \
 left join playlist_content c on c.pls_id = p.pls_id \
 left join track t on c.trk_id = t.trk_id \
 left join artist a on t.art_id = a.art_id \
-where u.usr_id = 1 \
+where u.usr_id = ? \
 ";
 
     var stmt = conn.direct();
     stmt.connect();
-    stmt.query(sql, function(err, rows, fields) {
+    stmt.query(sql, [userId], function(err, rows, fields) {
       
-      rows.forEach(function(element, i) {
+      rows.forEach(function(element) {
             result.pid = element.pid;
             result.playlist.push({'id': element.id,'artist': element.artist, 'title': element.title, 'duration': element.duration});
       })

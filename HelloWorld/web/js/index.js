@@ -7,7 +7,7 @@ var getCollection = function() {
     coll.fetch(function(data) {
         console.log(data);
         var result = '<ol>';
-        //data = data.collection;
+        data = data.collection;
 
         for(var i = 0; i < data.length; i++) {
             var duration = data[i].duration;
@@ -31,7 +31,7 @@ var getCollection = function() {
 var getUserFavorites = function() {
     pl.getFavorites(function(data) {
         var result = '<ol>';
-        //data = data.playlist;
+        data = data.playlist;
         if(data[0].artist === null && data[0].title === null) {
             result = 'La playlist est vide';
         } else {
