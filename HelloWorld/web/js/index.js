@@ -60,9 +60,9 @@ pl.afterRemoveTrack = getUserFavorites;
 
 
 
-Phink.DOM.ready(function() {
+var init = function() {
     
     //usr.getInfo();
     getCollection()
     getUserFavorites();
-})
+};

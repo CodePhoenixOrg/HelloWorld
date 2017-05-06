@@ -17,7 +17,7 @@ NestJS.Web.Object.prototype.constructor = NestJS.Web.Object;
 NestJS.Web.Object.include = function (file, encoding, callback) {
     fs.readFile(file, encoding, function (err, stream) {
         if (typeof callback === 'function') {
-            callback.call(this, err, stream);
+            callback(err, stream);
         }
 
     });

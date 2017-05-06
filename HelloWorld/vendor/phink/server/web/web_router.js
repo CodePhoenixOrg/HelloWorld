@@ -44,11 +44,11 @@ NestJS.Web.Router.prototype.translate = function(callback)
     this.filePath = (extension === '.html') ? APP_ROOT + 'views/' + url : (extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? PHINK_ROOT + 'phink.js' : DOCUMENT_ROOT + url;
 
     fs.exists(this.filePath, function(exists) {
-        callback.call(this, exists);
+        callback(exists);
     });
 }
 
-NestJS.Web.Router.prototype.dispatch = function()
+NestJS.Web.Router.prototype.dispatch = function(callback)
 {
 
     var encoding = (this.encoding !== '') ? { 'encoding': this.encoding } : null;
@@ -61,11 +61,8 @@ NestJS.Web.Router.prototype.dispatch = function()
 
             res.writeHead(200, { 'Content-Type': mime });
             if (typeof callback === 'function') {
-                callback.call(this, req, res, stream);
+                callback(req, res, stream);
             }
-            res.write(stream);
-            res.end();
-
         } else {
             console.log(err);
         }

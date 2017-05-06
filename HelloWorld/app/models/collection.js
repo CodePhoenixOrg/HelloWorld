@@ -19,6 +19,7 @@ select trk_id as id, art_name as artist, trk_title as title, trk_duration as dur
 from artist a \
 inner join track t on a.art_id = t.art_id \
 order by art_name, trk_title \
+limit 0, 25 \
 ";
 
     var stmt = conn.direct();

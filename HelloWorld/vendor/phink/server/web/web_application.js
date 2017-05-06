@@ -28,21 +28,51 @@ NestJS.Web.Application.create = function (url, port, callback) {
         //console.log(req.headers);
         NestJS.Web.Application.headers = req.rawHeaders;
 
-        if (req.url.indexOf("/api/") > -1) {
+        var body = [];
+
+        req.on('error', function (err) {
+            console.error(err);
+        }).on('data', function (chunk) {
+            body.push(chunk);
+            console.log(chunk);
+        }).on('end', function () {
+            body = Buffer.concat(body).toString();
+            console.log(body);
+            req.on('error', function (err) {
+                console.error(err);
+            })
+
+            var router = null;
+            if (req.url.indexOf("/api/") > -1) {
+                router = new NestJS.Rest.Router(req, res);
+            } else {
+                router = new NestJS.Web.Router(req, res);
+            }
+            
             console.log(req.url);
-            var router = new NestJS.Rest.Router(req, res);
             router.translate(function(exists) {
-                if(exists) router.dispatch();
+                if(exists) router.dispatch(function (req2, res, stream) {
+                    res.write(stream);
+                    res.end();
+                    
+                    //req2.emit('finish');
+                });
             });
 
-        } else {
-            console.log(req.url);
-            var router = new NestJS.Web.Router(req, res);
-            router.translate(function(exists) {
-                if(exists) router.dispatch();
-            });
+  //          res.end();
+  //          res.emit('close');
+            
+        }).on('finish', function() {
+            console.log("FINISH");
+            res.end();
+            //res.removeAllListeners('data');
+            //req.emit('close');
+        }).on('close', function() {
+            console.log("CLOSE");
+            // req = null;
+        });
 
-        }
+
     }).listen(port);
 }; 
 

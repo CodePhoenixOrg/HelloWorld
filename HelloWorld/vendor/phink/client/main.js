@@ -17,13 +17,15 @@ Phink.include = function (file, callback) {
 
 var mainNode = document.querySelectorAll("script[src='/phink.js']");
 var sources = (mainNode.length > 0 && mainNode[0].dataset['sources'] !== undefined) ? mainNode[0].dataset['sources'].split(";") : [];
-var init = (mainNode.length > 0 && mainNode[0].dataset['init'] !== undefined) ? mainNode[0].dataset['init'] : null;
+var init = (mainNode.length > 0 && mainNode[0].dataset['init'] !== undefined) ? mainNode[0].dataset['init'] : 'init';
 
 Phink.DOM.ready(function () {
     for (var i = 0; i < sources.length; i++) {
         Phink.include(sources[i], function(e) {
             if(typeof window[init] === 'function') {
-                window[init]();
+                window['__init'] = window[init];
+                window[init] = null;
+                __init();
             }
         });
     }
