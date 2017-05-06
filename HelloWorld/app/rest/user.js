@@ -10,7 +10,7 @@ var User = function() {
 //put your code here
 User.get = function() {
     //var result = Playlist::getUserFavorites($userId);
-    return {'user': 'live'};
+    return {'name': 'Lambda'};
 }
  
 //Playlist.prototype.put function($playlist, $trackId) {

@@ -23,9 +23,15 @@ Phink.DOM.ready(function () {
     for (var i = 0; i < sources.length; i++) {
         Phink.include(sources[i], function(e) {
             if(typeof window[init] === 'function') {
+<<<<<<< HEAD
                 window.__init = window[init];
                 window[init] = null;
                 window.__init();
+=======
+                window['__init'] = window[init];
+                window[init] = null;
+                __init();
+>>>>>>> bddf3b8e244be0775551e48783068772cf815f12
             }
         });
     }
