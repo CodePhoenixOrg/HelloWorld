@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
 NestJS.Rest = NestJS.Rests || {}
@@ -22,12 +22,10 @@ NestJS.Web.Application.prototype.constructor = NestJS.Web.Application;
 NestJS.Web.Application.headers = {}
 
 NestJS.Web.Application.create = function (url, port, callback) {
-    var http = require('http');
 
-    http.createServer(function (req, res) {
+    require('http').createServer(function (req, res) {
         //console.log(req.headers);
         NestJS.Web.Application.headers = req.rawHeaders;
-
         var body = [];
 
         req.on('error', function (err) {
@@ -51,25 +49,31 @@ NestJS.Web.Application.create = function (url, port, callback) {
             
             console.log(req.url);
             router.translate(function(exists) {
-                if(exists) router.dispatch(function (req2, res, stream) {
-                    res.write(stream);
-                    res.end();
-                    
-                    //req2.emit('finish');
-                });
+                if(exists) {
+                    router.dispatch(function (req2, res2, stream) {
+                        if (typeof callback === 'function') {
+                            callback(req, res, stream);
+                        }
+                      
+                        res2.write(stream);
+                        req2.emit('finish');
+                    });
+                } else {
+                    res.writeHead(404, { 'Content-Type': router.getMimeType() });
+                    res.write("Error 404 - It looks like you are lost in middle of no ware ...");
+                    req.emit('finish');
+                }
             });
-
-  //          res.end();
-  //          res.emit('close');
-            
+          
         }).on('finish', function() {
-            console.log("FINISH");
-            res.end();
             //res.removeAllListeners('data');
-            //req.emit('close');
+            res.end();
+            console.log("FINISH");
+            req.emit('close');
         }).on('close', function() {
             console.log("CLOSE");
-            // req = null;
+            req = null;
+            res = null;
         });
 
 

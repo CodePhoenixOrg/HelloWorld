@@ -4,7 +4,7 @@ var NestJS = NestJS || {}
 NestJS.Rest = NestJS.Rest || {}
 NestJS.Web = NestJS.Web || {}
 
-NestJS.Web.Object = require('../web/web_object.js');
+NestJS.Router = require('../core/base_router.js');
 
 var path = require('path');
 var fs = require('fs');
@@ -21,7 +21,7 @@ NestJS.Rest.Router = function (req, res) {
     this.response = res;
 }
 
-NestJS.Rest.Router.prototype = new NestJS.Web.Object();
+NestJS.Rest.Router.prototype = new NestJS.Router();
 NestJS.Rest.Router.prototype.constructor = NestJS.Rest.Router;
 
 NestJS.Rest.Router.prototype.translate = function(callback)

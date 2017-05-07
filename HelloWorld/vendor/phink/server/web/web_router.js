@@ -3,7 +3,7 @@
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
 
-NestJS.Web.Object = require('../web/web_object.js');
+NestJS.Router = require('../core/base_router.js');
 
 var path = require('path');
 var fs = require('fs');
@@ -16,7 +16,7 @@ NestJS.Web.Router = function (req, res) {
     this.encoding = '';
 }
 
-NestJS.Web.Router.prototype = new NestJS.Web.Object();
+NestJS.Web.Router.prototype = new NestJS.Router();
 NestJS.Web.Router.prototype.constructor = NestJS.Web.Router;
 
 NestJS.Web.Router.prototype.translate = function(callback)
@@ -56,7 +56,7 @@ NestJS.Web.Router.prototype.dispatch = function(callback)
     var req = this.request;
     var mime = this.mimetype;
 
-    NestJS.Web.Object.include(this.filePath, encoding, function (err, stream) {
+    require('./web_object').include(this.filePath, encoding, function (err, stream) {
         if (!err) {
 
             res.writeHead(200, { 'Content-Type': mime });
