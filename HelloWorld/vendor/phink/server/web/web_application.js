@@ -1,7 +1,7 @@
 'use strict';
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
-NestJS.Rest = NestJS.Rests || {}
+NestJS.Rest = NestJS.Rest || {}
 
 NestJS.Web.Object = require('./web_object.js');
 NestJS.Web.Router = require('./web_router.js');
@@ -9,12 +9,7 @@ NestJS.Rest.Router = require('../rest/rest_router.js');
 
 var bootstrap = require('../bootstrap');
 
-var path = require('path');
-var file = require('fs');
-
-NestJS.Web.Application = function () {
-    
-};
+NestJS.Web.Application = function () {};
 
 NestJS.Web.Application.prototype = new NestJS.Web.Object();
 NestJS.Web.Application.prototype.constructor = NestJS.Web.Application;
@@ -50,13 +45,13 @@ NestJS.Web.Application.create = function (url, port, callback) {
             console.log(req.url);
             router.translate(function(exists) {
                 if(exists) {
-                    router.dispatch(function (req2, res2, stream) {
+                    router.dispatch(function (rreq, rres, stream) {
                         if (typeof callback === 'function') {
-                            callback(req, res, stream);
+                            callback(rreq, rres, stream);
                         }
                       
-                        res2.write(stream);
-                        req2.emit('finish');
+                        rres.write(stream);
+                        rreq.emit('finish');
                     });
                 } else {
                     res.writeHead(404, { 'Content-Type': router.getMimeType() });
@@ -66,7 +61,6 @@ NestJS.Web.Application.create = function (url, port, callback) {
             });
           
         }).on('finish', function() {
-            //res.removeAllListeners('data');
             res.end();
             console.log("FINISH");
             req.emit('close');

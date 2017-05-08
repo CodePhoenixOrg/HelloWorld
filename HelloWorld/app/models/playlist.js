@@ -13,8 +13,9 @@ Playlist.getUserFavorites = function (userId, callback) {
     result.playlist = [];
     result.pid = 0;
 
-    var Connection = require(APP_DATA + 'connection');
-    var conn = new Connection();
+    var mysql = require('mysql');
+    var conf = require(APP_DATA + 'configuration');
+    var stmt = mysql.createConnection(conf.parameters);
 
     var sql = " \
 select p.pls_id as pid, plc_id as id, art_name as artist, trk_title as title, trk_duration as duration \
@@ -26,7 +27,6 @@ left join artist a on t.art_id = a.art_id \
 where u.usr_id = ? \
 ";
 
-    var stmt = conn.direct();
     stmt.connect();
     stmt.query(sql, [userId], function(err, rows, fields) {
       

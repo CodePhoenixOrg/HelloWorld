@@ -11,8 +11,11 @@ Collection.getAllTracks = function(callback) {
     var result = {};
     result.collection = [];
   
-    var Connection = require(APP_DATA + 'connection');
-    var conn = new Connection();
+    //var Connection = require(APP_DATA + 'connection');
+    //var conn = new Connection();
+    var mysql = require('mysql');
+    var conf = require(APP_DATA + 'configuration');
+    var stmt = mysql.createConnection(conf.parameters);
 
     var sql = "\
 select trk_id as id, art_name as artist, trk_title as title, trk_duration as duration \
@@ -22,7 +25,7 @@ order by art_name, trk_title \
 limit 0, 25 \
 ";
 
-    var stmt = conn.direct();
+    //var stmt = conn.direct();
     stmt.connect();
     stmt.query(sql, function(err, rows, fields) {
       
