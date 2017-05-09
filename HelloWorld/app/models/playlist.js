@@ -37,7 +37,6 @@ where u.usr_id = ? \
 
       callback(result);
         
-        
     });
     stmt.end(); 
       

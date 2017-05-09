@@ -1,3 +1,18 @@
+'use strict';
+
+var NestJS = NestJS || {}
+NestJS.Web = NestJS.Web || {}
+
+
+NestJS.Web.Object = require('../web/web_object.js');
+
+NestJS.MVC.Controller = function () {};
+
+NestJS.MVC.Controller.prototype = new NestJS.Web.Object();
+NestJS.MVC.Controller.prototype.constructor = NestJS.MVC.Controller;
+
+
+
     var qstring = this.request.url;
     var qParts = qstring.split('/');
     this.className = qParts.shift();
