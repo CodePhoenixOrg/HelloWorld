@@ -3,36 +3,43 @@
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
 
-
 NestJS.Web.Object = require('../web/web_object.js');
 
-NestJS.MVC.Controller = function () {};
+NestJS.MVC.Controller = function (viewName) {
+    this.viewName = viewName;
+    NestJS.Web.Object.apply(this, arguments);
+};
 
 NestJS.MVC.Controller.prototype = new NestJS.Web.Object();
 NestJS.MVC.Controller.prototype.constructor = NestJS.MVC.Controller;
 
+NestJS.MVC.Controller.prototype.load = function () {}
 
+NestJS.MVC.Controller.prototype.view = new (require(PHINK_ROOT + 'mvc/view'))(this.viewName);
 
-    var qstring = this.request.url;
-    var qParts = qstring.split('/');
-    this.className = qParts.shift();
-	this.method = qParts.shift();
- 
-    this.classFileName = APP_ROOT + 'controller' + path.sep + this.className + '.js';
-    console.log(this.classFileName);
-    
-    var data = [];
-    console.log(method);
+NestJS.MVC.Controller.prototype.render = function (callback)
+{
+    this.load();
+    this.parse(function (data) {
+        callback(data);
+    });
 
-    var fqObject = require(this.classFileName);
+}
 
-    var result = '';
-    if(typeof fqObject[this.method] === 'function') {
-        result = fqObject[this.method]();
-    } else {
-        console.log(this.className + '.' + method + ' not found');
-    }
+NestJS.MVC.Controller.prototype.parse = function (callback) 
+{
+    this.view.getTemplate(function(err, template) {
+        var matches = template.match("/(<% [a-z]+ %>)/");
+        
+        matches.forEach(function (match) {
+            var variable = match.replace(/%\>/, '', match.replace(/\<%/, ''));
+            template = template.replace(match, this[variable]);
+        });
+        
+        callback(template);
 
-    this.response.write(JSON.stringify(result));
-    this.response.end();
+    });
 
+}
+
+module.exports = NestJS.MVC.Controller;
