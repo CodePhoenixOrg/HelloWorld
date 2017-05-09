@@ -1,9 +1,12 @@
-/**
- * Description of home
- *
- * @author David
- */
-var Home = function() {
+'use strict';
+
+var SoundLib = SoundLib || {}
+
+SoundLib.Controller = require(PHINK_ROOT + 'mvc/controller');
+
+
+SoundLib.Home = function() {
+    NestJS.Web.Object.apply(this, arguments);
 
     //put your code here
 
@@ -12,7 +15,10 @@ var Home = function() {
     this.userid = 0;
 }
     
-Home.prototype.load = function () {
+SoundLib.Home.prototype = new SoundLib.Controller();
+SoundLib.Home.prototype.constructor = SoundLib.Home;
+
+SoundLib.Home.prototype.load = function () {
         
     var coll = require(APP_MODELS + 'collection');
 
@@ -39,3 +45,4 @@ Home.prototype.load = function () {
     })
 }
 
+module.exports = SoundLib.Home;

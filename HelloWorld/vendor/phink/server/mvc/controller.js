@@ -19,9 +19,11 @@ NestJS.MVC.Controller.prototype.view = new (require(PHINK_ROOT + 'mvc/view'))(th
 
 NestJS.MVC.Controller.prototype.render = function (callback)
 {
-    this.load();
-    this.parse(function (data) {
-        callback(data);
+    this.load(function(data) {
+        this.parse(function (data) {
+            callback(data);
+        });
+
     });
 
 }
