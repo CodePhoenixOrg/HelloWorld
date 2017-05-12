@@ -2,6 +2,7 @@
 
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
+NestJS.MVC = NestJS.MVC || {}
 
 NestJS.Web.Object = require('../web/web_object.js');
 
@@ -15,14 +16,14 @@ NestJS.MVC.Controller.prototype.constructor = NestJS.MVC.Controller;
 
 NestJS.MVC.Controller.prototype.load = function () {}
 
-NestJS.MVC.Controller.prototype.view = new (require(PHINK_ROOT + 'mvc/view'))(this.viewName);
+NestJS.MVC.Controller.prototype.view = new (require(PHINK_ROOT + 'server/mvc/view'))(this.viewName);
 
 NestJS.MVC.Controller.prototype.render = function (callback)
 {
     this.load(function(data) {
         this.parse(function (data) {
-            callback(data);
-        });
+            callback.bind(this, data);
+        }).bind(this);
 
     });
 

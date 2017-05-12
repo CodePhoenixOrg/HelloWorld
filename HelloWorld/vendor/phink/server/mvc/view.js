@@ -2,6 +2,7 @@
 
 var NestJS = NestJS || {}
 NestJS.Web = NestJS.Web || {}
+NestJS.MVC = NestJS.MVC || {}
 
 NestJS.Web.Object = require('../web/web_object.js');
 

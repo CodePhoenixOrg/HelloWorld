@@ -2,23 +2,24 @@
 
 var SoundLib = SoundLib || {}
 
-SoundLib.Controller = require(PHINK_ROOT + 'mvc/controller');
+SoundLib.Controller = require(PHINK_ROOT + 'server/mvc/controller');
 
 
-SoundLib.Home = function() {
-    NestJS.Web.Object.apply(this, arguments);
+SoundLib.Index = function() {
+
+    SoundLib.Controller.call(this, arguments);
 
     //put your code here
 
     this.banner = "SoundLib";
-    this.collection = "";
+    this['collection'] = "";
     this.userid = 0;
 }
     
-SoundLib.Home.prototype = new SoundLib.Controller();
-SoundLib.Home.prototype.constructor = SoundLib.Home;
+SoundLib.Index.prototype = new SoundLib.Controller();
+SoundLib.Index.prototype.constructor = SoundLib.Index;
 
-SoundLib.Home.prototype.load = function () {
+SoundLib.Index.prototype.load = function () {
         
     var coll = require(APP_MODELS + 'collection');
 
@@ -39,10 +40,10 @@ SoundLib.Home.prototype.load = function () {
         }
         result += '</ol>';
 
-        this.collection = result;
+        this['collection'] = result;
             
         this.userid = 1;
     })
 }
 
-module.exports = SoundLib.Home;
+module.exports = SoundLib.Index;

@@ -6,7 +6,7 @@ SoundLib.Data = {};
 var mysql = require('mysql');
 
 var config = {
-        host: 'glacier',
+        host: 'localhost',
         port: 3306,
         user: 'djay',
         password: 'demo',
