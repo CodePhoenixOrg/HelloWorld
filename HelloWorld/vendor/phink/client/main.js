@@ -18,20 +18,27 @@ Phink.include = function (file, callback) {
 var mainNode = document.querySelectorAll("script[src='/phink.js']");
 var depends = (mainNode.length > 0 && mainNode[0].dataset.depends !== undefined) ? mainNode[0].dataset.depends.split(";") : [];
 var sources = (mainNode.length > 0 && mainNode[0].dataset.sources !== undefined) ? mainNode[0].dataset.sources.split(";") : [];
-var main = (mainNode.length > 0 && mainNode[0].dataset.main !== undefined) ? mainNode[0].dataset.init : 'phink_main';
+var main = (mainNode.length > 0 && mainNode[0].dataset.init !== undefined) ? mainNode[0].dataset.init : 'phink_main';
 
 Phink.DOM.ready(function () {
   
     var loadDepends = function(callback) {
-        for (var i = 0; i < depends.length; i++) {
-            Phink.include(depends[i], function(e) {
-                if(i === depends.length) {
-                    if(typeof callback === 'function') {
-                        callback.call(null, e);    
+        if(depends.length > 0) {
+            for (var i = 0; i < depends.length; i++) {
+                Phink.include(depends[i], function(e) {
+                    if(i === depends.length) {
+                        if(typeof callback === 'function') {
+                            callback.call(null);    
+                        }
+                    
                     }
-                  
-                }
-            });
+                });
+            }
+
+        } else {
+            if(typeof callback === 'function') {
+                callback.call(this);
+            }
         }
       
     }

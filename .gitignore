@@ -1,5 +1,5 @@
 /.vs/HelloWorld/v15/.suo
 .vs
-HelloWorld/node_modules
-HelloWorld/vendor/phink/phink.js
-HelloWorld/app/data/configuration.js
+/HelloWorld/node_modules
+/HelloWorld/app/data/configuration.js
+/HelloWorld/vendor/phink/phink.js

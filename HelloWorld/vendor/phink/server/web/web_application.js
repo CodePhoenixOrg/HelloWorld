@@ -29,11 +29,22 @@ NestJS.Web.Application.create = function (url, port, callback) {
             body.push(chunk);
             console.log(chunk);
         }).on('end', function () {
+
             body = Buffer.concat(body).toString();
             console.log(body);
             req.on('error', function (err) {
                 console.error(err);
             })
+
+            if(req.method == 'POST') {
+
+                    
+                var post = require('querystring').parse(body);
+                console.log('POST DATA BEGIN');
+                console.log(require('sys').inspect(post));
+                console.log(post);
+                console.log('END POST DATA');
+            }
 
             var router = null;
             if (req.url.indexOf("/api/") > -1) {

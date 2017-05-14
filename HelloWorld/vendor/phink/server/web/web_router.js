@@ -59,15 +59,15 @@ NestJS.Web.Router.prototype.dispatch = function(callback) {
     var req = this.request;
     var mime = this.mimetype;
 
-    if(this.extension === '.html') {
-        var Controller = require(APP_CONTROLLERS + this.viewName + '.js');
-        var ctrl = new Controller(this.viewName);
-        ctrl.render(function(stream) {
-            callback(req, res, stream);
-        });
+    // if(this.extension === '.html') {
+    //     var Controller = require(APP_CONTROLLERS + this.viewName + '.js');
+    //     var ctrl = new Controller(this.viewName);
+    //     ctrl.render(function(stream) {
+    //         callback(req, res, stream);
+    //     });
 
-        return true;
-    } 
+    //     return true;
+    // } 
 
     require('./web_object').include(this.filePath, encoding, function (err, stream) {
         if (!err) {

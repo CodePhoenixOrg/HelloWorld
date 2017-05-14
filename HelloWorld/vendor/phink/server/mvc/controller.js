@@ -20,11 +20,12 @@ NestJS.MVC.Controller.prototype.view = new (require(PHINK_ROOT + 'server/mvc/vie
 
 NestJS.MVC.Controller.prototype.render = function (callback)
 {
-    this.load(function(data) {
-        this.parse(function (data) {
-            callback.bind(this, data);
-        }).bind(this);
-
+    console.log("RENDER");
+    var self = this;
+    this.load().bind(this).then(function() {
+        self.parse(function (data) {
+            callback(data);
+        });
     });
 
 }

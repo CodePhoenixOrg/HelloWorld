@@ -40,9 +40,9 @@ SoundLib.Index.prototype.load = function () {
         }
         result += '</ol>';
 
-        this['collection'] = result;
+        // this['collection'] = result;
             
-        this.userid = 1;
+        // this.userid = 1;
     })
 }
 
