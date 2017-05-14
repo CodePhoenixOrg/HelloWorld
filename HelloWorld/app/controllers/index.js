@@ -2,7 +2,7 @@
 
 var SoundLib = SoundLib || {}
 
-SoundLib.Controller = require(PHINK_ROOT + 'server/mvc/controller');
+SoundLib.Controller = require(PHINK_ROOT + 'mvc/controller');
 
 
 SoundLib.Index = function() {

@@ -1,12 +1,29 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Hello World</title>
-    <script type="text/javascript" data-init="printHello" data-sources="/js/main.js;/js/formdata.js" src="/phink.js"></script>
-</head>
-<body>
-    <h1>It works!</h1>
-    <div id="hello"></div>
-</body>
+<html>
+    <head>
+        <title>SoundLib</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link   rel="stylesheet" href="/css/index.css" type="text/css" />
+        <script type="text/javascript" data-depends="/js/soundlib.js" data-sources="/js/index.js" src="/phink.js"></script>
+    </head>
+    <body>
+        <h1>SoundLib</h1>
+
+        <div class="user">
+            <span>Hello <span id ="name" ></span>! (<span id ="email" ></span>)</span>
+        </div>
+        <div class="collection">
+            <span>Ma collection </span>
+            <div id="collection" >
+                <% collection %>
+            </div>
+        </div>
+        <div class="playlist">
+            <span>Ma playlist </span>
+            <div id="playlist" >
+
+            </div>
+        </div>
+    </body>
 </html>
