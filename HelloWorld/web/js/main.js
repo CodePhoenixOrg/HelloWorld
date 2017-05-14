@@ -10,7 +10,7 @@ var sayHello = function () {
         helloWorld = hello + ' ' + world + '!';
 
     return helloWorld;
-    
+
 }
 
 var printHello = function () {
@@ -19,4 +19,3 @@ var printHello = function () {
     hello.innerHTML = sayHello();
 
 }
-

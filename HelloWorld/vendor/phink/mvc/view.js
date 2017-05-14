@@ -14,10 +14,9 @@ NestJS.MVC.View = function (viewName) {
 
 NestJS.MVC.View.prototype = new NestJS.Web.Object();
 NestJS.MVC.View.prototype.constructor = NestJS.MVC.View;
-    
-NestJS.MVC.View.prototype.getTemplate = function (callback)
-{
-    require('fs').readFile(this.viewFileName, 'utf-8', function(err, data) {
+
+NestJS.MVC.View.prototype.getTemplate = function (callback) {
+    require('fs').readFile(this.viewFileName, 'utf-8', function (err, data) {
         callback(err, data);
     });
 }

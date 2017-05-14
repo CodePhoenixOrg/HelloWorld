@@ -18,16 +18,16 @@ NestJS.Router = function (req, res) {
 NestJS.Router.prototype = new NestJS.Web.Object();
 NestJS.Router.prototype.constructor = NestJS.Router;
 
-NestJS.Router.prototype.getMimeType = function() {
-	return this.mimetype;
+NestJS.Router.prototype.getMimeType = function () {
+    return this.mimetype;
 }
 
-NestJS.Router.prototype.getEncoding = function() {
-	return this.encoding;
+NestJS.Router.prototype.getEncoding = function () {
+    return this.encoding;
 }
 
-NestJS.Router.prototype.translate = function(callback) {}
+NestJS.Router.prototype.translate = function (callback) {}
 
-NestJS.Router.prototype.dispatch = function(callback) {}
+NestJS.Router.prototype.dispatch = function (callback) {}
 
 module.exports = NestJS.Router;

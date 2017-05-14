@@ -1,7 +1,7 @@
 'use strict';
 var NestJS = NestJS || {}
 
-NestJS.Object = function(parent) {
+NestJS.Object = function (parent) {
     this.id = '';
     this.name = '';
     this.parent = (parent !== undefined) ? parent : null;
@@ -12,22 +12,22 @@ NestJS.Object.prototype = {
         this.id = value;
 
         return this;
-    }
-    , getId: function () {
+    },
+    getId: function () {
         return this.id;
-    }
-    , setName: function (value) {
+    },
+    setName: function (value) {
         this.name = value;
 
         return this;
-    }
-    , getName: function () {
+    },
+    getName: function () {
         return this.name;
-    }
-    , setParent: function (parent) {
+    },
+    setParent: function (parent) {
         this.parent = (parent !== undefined) ? parent : null;
-    }
-    , getParent: function () {
+    },
+    getParent: function () {
         return this.parent;
     }
 };

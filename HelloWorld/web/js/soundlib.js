@@ -1,12 +1,12 @@
-var SoundLib = function() {}
+var SoundLib = function () {}
 
-SoundLib.User = function(userId) {
+SoundLib.User = function (userId) {
     this.currentUser = userId
 }
 
-SoundLib.Collection = function() {}
+SoundLib.Collection = function () {}
 
-SoundLib.Playlist = function(userId) {
+SoundLib.Playlist = function (userId) {
     this.currentUser = userId
     this.cuurentPlaylist = 0
 }
@@ -17,8 +17,8 @@ SoundLib.Playlist = function(userId) {
  * 
  * @returns JSON stream
  */
-SoundLib.User.prototype.getInfo = function() {
-    Phink.Web.Rest.get('/api/user/' + this.currentUser, function(data) {
+SoundLib.User.prototype.getInfo = function () {
+    Phink.Web.Rest.get('/api/user/' + this.currentUser, function (data) {
         var user = data.info[0]
         document.getElementById('name').innerHTML = user.name
         document.getElementById('email').innerHTML = user.email
@@ -30,13 +30,13 @@ SoundLib.User.prototype.getInfo = function() {
  * 
  * @returns JSON stream
  */
-SoundLib.Collection.prototype.fetch = function(callback) {
-    Phink.Web.Rest.get('/api/collection', function(data) {
-        if(typeof callback === 'function') {
+SoundLib.Collection.prototype.fetch = function (callback) {
+    Phink.Web.Rest.get('/api/collection', function (data) {
+        if (typeof callback === 'function') {
             callback.call(this, data)
         }
     })
-    
+
 }
 
 /**
@@ -44,15 +44,15 @@ SoundLib.Collection.prototype.fetch = function(callback) {
  * 
  * @returns JSON stream
  */
-SoundLib.Playlist.prototype.getFavorites = function(callback) {
+SoundLib.Playlist.prototype.getFavorites = function (callback) {
     var the = this
-    Phink.Web.Rest.get('/api/playlist/' + this.currentUser, function(data) {
-        if(typeof callback === 'function') {
+    Phink.Web.Rest.get('/api/playlist/' + this.currentUser, function (data) {
+        if (typeof callback === 'function') {
             the.currentPlaylist = data.pid
             callback.call(this, data)
         }
     })
-    
+
 }
 
 /**
@@ -60,29 +60,30 @@ SoundLib.Playlist.prototype.getFavorites = function(callback) {
  * 
  * @returns JSON stream
  */
-SoundLib.Playlist.prototype.addTrack = function(trackId) {
+SoundLib.Playlist.prototype.addTrack = function (trackId) {
     var the = this
-    Phink.Web.Rest.put('/api/playlist/' + this.currentPlaylist, {'track' : trackId}, function(data) {
-        if(data.inserted == 1) {
+    Phink.Web.Rest.put('/api/playlist/' + this.currentPlaylist, {
+        'track': trackId
+    }, function (data) {
+        if (data.inserted == 1) {
             the.afterAddTrack()
         }
     })
 }
 
-SoundLib.Playlist.prototype.afterAddTrack = function() {}
+SoundLib.Playlist.prototype.afterAddTrack = function () {}
 /**
  * Performs a delete request on user's playlist to remove a title giving its Id in playlist
  * 
  * @returns JSON stream
  */
-SoundLib.Playlist.prototype.removeTrack = function(trackId) {
+SoundLib.Playlist.prototype.removeTrack = function (trackId) {
     var the = this
-    Phink.Web.Rest.delete('/api/playlist/' + trackId, function(data) {
-        if(data.deleted == 1) {
+    Phink.Web.Rest.delete('/api/playlist/' + trackId, function (data) {
+        if (data.deleted == 1) {
             the.afterRemoveTrack()
         }
     })
 }
 
-SoundLib.Playlist.prototype.afterRemoveTrack = function() {}
-
+SoundLib.Playlist.prototype.afterRemoveTrack = function () {}

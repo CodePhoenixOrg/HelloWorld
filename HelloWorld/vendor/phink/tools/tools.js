@@ -1,7 +1,7 @@
 'use strict';
 
 
-var Tools = function() {};
+var Tools = function () {};
 
 Tools.listFiles = function () {
 
@@ -33,8 +33,8 @@ Tools.listFiles = function () {
 
     var tree = [];
     var dir = __dirname + path.sep + '.' + path.sep;
-    walkTree(dir, function(files) {
-        for(var i = 0; i < files.length; i++) {
+    walkTree(dir, function (files) {
+        for (var i = 0; i < files.length; i++) {
             var file = path.basename(files[i]);
             var dir = path.dirname(files[i]).substring(__dirname.length);
 

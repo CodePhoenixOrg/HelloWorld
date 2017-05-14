@@ -18,7 +18,7 @@ NestJS.Data.MySQL.Connection.prototype = {
         return _conn;
     },
     tunneled: function (sshConfig, callback) {
-        
+
         var key = fs.readFileSync(APP_DATA + "/ssh/id_rsa");
 
         // var config = {
@@ -28,7 +28,7 @@ NestJS.Data.MySQL.Connection.prototype = {
         //     dstPort: 3306
         // };
 
-        tunnel(sshConfig, function(err, server) {
+        tunnel(sshConfig, function (err, server) {
             if (err) {
                 return console.log(err);
             }
@@ -40,9 +40,9 @@ NestJS.Data.MySQL.Connection.prototype = {
             //     database: 'soundlib'
             // });
             var _conn = null;
-            
 
-            if(typeof callback === 'function') {
+
+            if (typeof callback === 'function') {
                 callback.call(null, _conn, server);
             }
         });
@@ -54,7 +54,7 @@ NestJS.Data.MySQL.Connection.prototype = {
         //     database: 'soundlib'
         // });
 
-        
+
 
 
     }
