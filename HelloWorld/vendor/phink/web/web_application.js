@@ -17,8 +17,8 @@ class NestJSWebApplication extends NWebObject {
     static create(url, port, callback) {
         require('http').createServer(function (req, res) {
             //console.log(req.headers);
-            this._headers = req.rawHeaders;
             var body = [];
+            var the = this;
 
             req.on('error', function (err) {
                 console.error(err);
@@ -54,6 +54,7 @@ class NestJSWebApplication extends NWebObject {
                 router.translate(function (exists) {
                     if (exists) {
                         router.dispatch(function (rreq, rres, stream) {
+                            the._headers = rreq.headers;
                             if (typeof callback === 'function') {
                                 callback(rreq, rres, stream);
                             }
