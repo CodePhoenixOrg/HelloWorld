@@ -12,7 +12,7 @@ var NestJSRouter = function (req, res) {
 }
 
 NestJSRouter.prototype = new NestJSWebObject();
-NestJSRouter.prototype.constructor = NestJS.Router;
+NestJSRouter.prototype.constructor = NestJSRouter;
 
 NestJSRouter.prototype.getMimeType = function () {
     return this.mimetype;

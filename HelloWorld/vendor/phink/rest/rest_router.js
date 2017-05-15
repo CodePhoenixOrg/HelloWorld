@@ -1,10 +1,10 @@
 'use strict';
-NestJSRouter = require('../core/base_router.js');
+var NestJSRouter = require('../core/base_router.js');
 
 var path = require('path');
 var fs = require('fs');
 
-NestJSRestRouter = function (req, res) {
+var NestJSRestRouter = function (req, res) {
     this.application = null;
     this.apiName = '';
     this.className = '';

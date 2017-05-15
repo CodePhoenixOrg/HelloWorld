@@ -5,14 +5,19 @@ var NRestRouter = require('../rest/rest_router.js');
 
 var bootstrap = require('../bootstrap');
 
-NWebApplication = function () { };
-
-class Application extends NWebObject {
+class NestJSWebApplication extends NWebObject {
+    constructor() {
+        this._headers = null;
+    }
+    
+    get headers() {
+        return this._headers;
+    }
 
     static create(url, port, callback) {
         require('http').createServer(function (req, res) {
             //console.log(req.headers);
-            NWebApplication.headers = req.rawHeaders;
+            this._headers = req.rawHeaders;
             var body = [];
 
             req.on('error', function (err) {
@@ -79,6 +84,5 @@ class Application extends NWebObject {
         }).listen(port);
     };
 }
-NWebApplication = Application;
 
-module.exports = NWebApplication;
+module.exports = NestJSWebApplication;

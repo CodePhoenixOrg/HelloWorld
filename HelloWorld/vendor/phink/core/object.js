@@ -32,4 +32,4 @@ NestJSObject.prototype = {
 };
 
 
-module.exports = NestJS.Object;
+module.exports = NestJSObject;
