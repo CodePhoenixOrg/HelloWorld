@@ -1,18 +1,14 @@
 'use strict';
-var NestJS = NestJS || {}
-NestJS.Data = NestJS.Data || {}
-
-NestJS.Data.MySQL = {};
 
 var mysql = require('mysql');
 var tunnel = require('tunnel-ssh');
 var fs = require('fs');
 
-NestJS.Data.MySQL.Connection = function (config) {
+var NestJSMySQLConnection = function (config) {
     this.config = config;
 };
 
-NestJS.Data.MySQL.Connection.prototype = {
+NestJSMySQLConnection.prototype = {
     direct: function () {
         _conn = new mysql.createConnection(this.config);
         return _conn;

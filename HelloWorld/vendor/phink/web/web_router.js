@@ -1,11 +1,7 @@
 'use strict';
+var NestJSRouter = require('../core/base_router.js');
 
-var NestJS = NestJS || {}
-NestJS.Web = NestJS.Web || {}
-
-NestJS.Router = require('../core/base_router.js');
-
-NestJS.Web.Router = function (req, res) {
+var NestJSWebRouter = function (req, res) {
     this.filePath = '';
     this.request = req;
     this.response = res;
@@ -15,10 +11,10 @@ NestJS.Web.Router = function (req, res) {
     this.viewName = '';
 }
 
-NestJS.Web.Router.prototype = new NestJS.Router();
-NestJS.Web.Router.prototype.constructor = NestJS.Web.Router;
+NestJSWebRouter.prototype = new NestJSRouter();
+NestJSWebRouter.prototype.constructor = NestJSWebRouter;
 
-NestJS.Web.Router.prototype.translate = function(callback)
+NestJSWebRouter.prototype.translate = function(callback)
 {
 
     var url = (this.request.url === '/') ? 'index.html' : this.request.url;
@@ -52,7 +48,7 @@ NestJS.Web.Router.prototype.translate = function(callback)
     });
 }
 
-NestJS.Web.Router.prototype.dispatch = function(callback) {
+NestJSWebRouter.prototype.dispatch = function(callback) {
 
     var encoding = (this.encoding !== '') ? { 'encoding': this.encoding } : null;
     var res = this.response;
@@ -83,4 +79,4 @@ NestJS.Web.Router.prototype.dispatch = function(callback) {
 
 }
 
-module.exports = NestJS.Web.Router;
+module.exports = NestJSWebRouter;

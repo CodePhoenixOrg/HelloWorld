@@ -1,15 +1,10 @@
 'use strict';
-
-var NestJS = NestJS || {}
-NestJS.Rest = NestJS.Rest || {}
-NestJS.Web = NestJS.Web || {}
-
-NestJS.Router = require('../core/base_router.js');
+NestJSRouter = require('../core/base_router.js');
 
 var path = require('path');
 var fs = require('fs');
 
-NestJS.Rest.Router = function (req, res) {
+NestJSRestRouter = function (req, res) {
     this.application = null;
     this.apiName = '';
     this.className = '';
@@ -21,10 +16,10 @@ NestJS.Rest.Router = function (req, res) {
     this.response = res;
 }
 
-NestJS.Rest.Router.prototype = new NestJS.Router();
-NestJS.Rest.Router.prototype.constructor = NestJS.Rest.Router;
+NestJSRestRouter.prototype = new NestJSRouter();
+NestJSRestRouter.prototype.constructor = NestJSRestRouter;
 
-NestJS.Rest.Router.prototype.translate = function(callback)
+NestJSRestRouter.prototype.translate = function(callback)
 {
 	//var nsParts = ('\\', __NAMESPACE__);
 	//this.baseNamespace = array_shift(nsParts);
@@ -45,7 +40,7 @@ NestJS.Rest.Router.prototype.translate = function(callback)
     });
 }
 
-NestJS.Rest.Router.prototype.dispatch = function(callback)
+NestJSRestRouter.prototype.dispatch = function(callback)
 {
     var data = [];
     var method = this.request.method.toLowerCase();
@@ -75,4 +70,4 @@ NestJS.Rest.Router.prototype.dispatch = function(callback)
 
 }
 
-module.exports = NestJS.Rest.Router;
+module.exports = NestJSRestRouter;

@@ -1,29 +1,18 @@
 'use strict';
-var NestJS = NestJS || {}
-NestJS.Web = NestJS.Web || {}
-NestJS.Rest = NestJS.Rest || {}
-
-NestJS.Web.Object = require('./web_object.js');
-NestJS.Web.Router = require('./web_router.js');
-NestJS.Rest.Router = require('../rest/rest_router.js');
+var NWebObject = require('./web_object.js');
+var NWebRouter = require('./web_router.js');
+var NRestRouter = require('../rest/rest_router.js');
 
 var bootstrap = require('../bootstrap');
 
-NestJS.Web.Application = function () { };
+NWebApplication = function () { };
 
-// NestJS.Web.Application.prototype = new NestJS.Web.Object();
-// NestJS.Web.Application.prototype.constructor = NestJS.Web.Application;
-
-// NestJS.Web.Application.headers = {}
-
-// NestJS.Web.Application.create = function (url, port, callback) {
-
-class Application extends NestJS.Web.Object {
+class Application extends NWebObject {
 
     static create(url, port, callback) {
         require('http').createServer(function (req, res) {
             //console.log(req.headers);
-            NestJS.Web.Application.headers = req.rawHeaders;
+            NWebApplication.headers = req.rawHeaders;
             var body = [];
 
             req.on('error', function (err) {
@@ -51,9 +40,9 @@ class Application extends NestJS.Web.Object {
 
                 var router = null;
                 if (req.url.indexOf("/api/") > -1) {
-                    router = new NestJS.Rest.Router(req, res);
+                    router = new NRestRouter(req, res);
                 } else {
-                    router = new NestJS.Web.Router(req, res);
+                    router = new NWebRouter(req, res);
                 }
 
                 console.log(req.url);
@@ -90,6 +79,6 @@ class Application extends NestJS.Web.Object {
         }).listen(port);
     };
 }
-NestJS.Web.Application = Application;
+NWebApplication = Application;
 
-module.exports = NestJS.Web.Application;
+module.exports = NWebApplication;

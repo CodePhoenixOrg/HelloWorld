@@ -1,13 +1,12 @@
 'use strict';
-var NestJS = NestJS || {}
 
-NestJS.Object = function (parent) {
+var NestJSObject = function (parent) {
     this.id = '';
     this.name = '';
     this.parent = (parent !== undefined) ? parent : null;
 };
 
-NestJS.Object.prototype = {
+NestJSObject.prototype = {
     setId: function (value) {
         this.id = value;
 
