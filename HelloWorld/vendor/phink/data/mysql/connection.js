@@ -1,23 +1,24 @@
 'use strict';
 
-var mysql = require('mysql');
-var tunnel = require('tunnel-ssh');
-var fs = require('fs');
+let mysql = require('mysql');
+let tunnel = require('tunnel-ssh');
+let fs = require('fs');
 
-var NestJSMySQLConnection = function (config) {
-    this.config = config;
-};
+class NestJSMySQLConnection {
+    constructor(config) {
+        this.config = config;
+    }
 
-NestJSMySQLConnection.prototype = {
-    direct: function () {
+    direct() {
         _conn = new mysql.createConnection(this.config);
         return _conn;
-    },
-    tunneled: function (sshConfig, callback) {
+    }
 
-        var key = fs.readFileSync(APP_DATA + "/ssh/id_rsa");
+    tunneled(sshConfig, callback) {
 
-        // var config = {
+        let key = fs.readFileSync(APP_DATA + "/ssh/id_rsa");
+
+        // let config = {
         //     username: "lambda",
         //     host: "192.168.1.150:22",
         //     privateKey: key,
@@ -28,14 +29,14 @@ NestJSMySQLConnection.prototype = {
             if (err) {
                 return console.log(err);
             }
-            // var _conn = new mysql.createConnection({
+            // let _conn = new mysql.createConnection({
             //     host: 'localhost',
             //     port: 3307,
             //     user: 'djay',
             //     password: 'demo',
             //     database: 'soundlib'
             // });
-            var _conn = null;
+            let _conn = null;
 
 
             if (typeof callback === 'function') {
@@ -43,7 +44,7 @@ NestJSMySQLConnection.prototype = {
             }
         });
 
-        // var _conn = mysql.createConnection({
+        // let _conn = mysql.createConnection({
         //     host: 'localhost',
         //     user: 'djay',
         //     password: 'demo',
