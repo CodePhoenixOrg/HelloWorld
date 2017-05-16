@@ -2,7 +2,10 @@
 let NestJSWebObject = require('../web/web_object.js');
 
 class NestJSMVCController extends NestJSWebObject {
-    constructor(viewName) {
+    constructor(parent, viewName) {
+        NestJSWebObject.bind(parent);
+        super(parent);
+
         this.viewName = viewName;
         this.view = new (require(global.PHINK_ROOT + 'mvc/view'))(this.viewName);
     }

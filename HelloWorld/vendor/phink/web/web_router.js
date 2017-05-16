@@ -3,7 +3,7 @@ let NestJSRouter = require('../core/base_router.js');
 
 class NestJSWebRouter extends NestJSRouter {
     constructor(parent, req, res) {
-        NestJSRouter.call(this)
+        NestJSRouter.bind(parent, req, res);
         super(parent, req, res);
         this.filePath = '';
         this.mimetype = '';
