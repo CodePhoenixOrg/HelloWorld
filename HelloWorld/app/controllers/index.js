@@ -1,49 +1,57 @@
 'use strict';
 
-var SoundLib = SoundLib || {}
+let Controller = require(PHINK_ROOT + 'mvc/controller');
 
-SoundLib.Controller = require(PHINK_ROOT + 'mvc/controller');
+class Index extends Controller {
+    constructor(parent, viewName) {
 
+        Controller.bind(parent, viewName);
+        super(parent, viewName);
 
-SoundLib.Index = function() {
+        this._banner = "SoundLib";
+        this._collection = "";
+        this._userid = 0;
+    }
 
-    SoundLib.Controller.call(this, arguments);
+    get collection () {
+        return this._collection;
+    }
 
-    //put your code here
+    get userId () {
+        return this._userid;
+    }
 
-    this.banner = "SoundLib";
-    this['collection'] = "";
-    this.userid = 0;
+    get banner () {
+        return this._banner;
+    }
+
+    load() {
+
+        let coll = require(global.APP_MODELS + 'collection');
+        let the = this;
+        coll.getAllTracks(function (data) {
+
+            console.log(data);
+            let result = '<ol>';
+            data = data.collection;
+
+            for (let i = 0; i < data.length; i++) {
+                let duration = data[i].duration;
+
+                let minutes = Math.floor(duration / 60);
+                let seconds = duration - (minutes * 60);
+                duration = minutes + ':' + ('00' + seconds).toString().slice(-2);
+
+                result += '<li><a href="javascript:pl.addTrack(' + data[i].id + ')" ><img src="/css/images/add.png" /></a>&nbsp;' + data[i].artist + ' - ' + data[i].title + ' (' + duration + ')' + '</li>';
+            }
+            result += '</ol>';
+
+            the._collection = result;
+
+            the._userid = 1;
+
+        })
+    }
 }
-    
-SoundLib.Index.prototype = new SoundLib.Controller();
-SoundLib.Index.prototype.constructor = SoundLib.Index;
 
-SoundLib.Index.prototype.load = function () {
-        
-    var coll = require(APP_MODELS + 'collection');
-
-    coll.getAllTracks(function(data) {
-
-        console.log(data);
-        var result = '<ol>';
-        data = data.collection;
-
-        for(var i = 0; i < data.length; i++) {
-            var duration = data[i].duration;
-
-            var minutes = Math.floor(duration / 60);
-            var seconds = duration - (minutes * 60);
-            duration = minutes + ':' + ('00' + seconds).toString().slice(-2);
-
-            result += '<li><a href="javascript:pl.addTrack(' + data[i].id + ')" ><img src="/css/images/add.png" /></a>&nbsp;' + data[i].artist + ' - ' + data[i].title + ' (' + duration + ')'  + '</li>';
-        }
-        result += '</ol>';
-
-        // this['collection'] = result;
-            
-        // this.userid = 1;
-    })
-}
-
-module.exports = SoundLib.Index;
+module.exports = Index;

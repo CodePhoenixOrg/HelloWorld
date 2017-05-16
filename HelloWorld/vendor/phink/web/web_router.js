@@ -10,6 +10,7 @@ class NestJSWebRouter extends NestJSRouter {
         this.encoding = '';
         this.extension = '';
         this.viewName = '';
+
     }
 
     translate(callback) {
@@ -20,7 +21,6 @@ class NestJSWebRouter extends NestJSRouter {
         this.extension = require('path').extname(this.viewName);
         let dotoffset = this.viewName.lastIndexOf('.');
         this.viewName = (dotoffset > -1) ? this.viewName.substring(0, dotoffset) : this.viewName;
-
         let mime = (this.extension === '') ? ['text/plain', 'utf-8'] :
             {
                 '.html': ['text/html', 'utf-8'],
@@ -45,21 +45,21 @@ class NestJSWebRouter extends NestJSRouter {
     }
 
     dispatch(callback) {
-
         let encoding = (this.encoding !== '') ? { 'encoding': this.encoding } : null;
         let res = this.response;
         let req = this.request;
         let mime = this.mimetype;
 
-        // if(this.extension === '.html') {
-        //     let Controller = require(APP_CONTROLLERS + this.viewName + '.js');
-        //     let ctrl = new Controller(this.viewName);
-        //     ctrl.render(function(stream) {
-        //         callback(req, res, stream);
-        //     });
+        if (this.extension === '.html') {
+            let Controller = require(global.APP_CONTROLLERS + this.viewName + '.js');
+            let ctrl = new Controller(this, this.viewName);
+            ctrl.render(function (stream) {
+                res.writeHead(200, { 'Content-Type': mime });
+                callback(req, res, stream);
+            });
 
-        //     return true;
-        // } 
+            return true;
+        }
 
         require('./web_object').include(this.filePath, encoding, function (err, stream) {
             if (!err) {
