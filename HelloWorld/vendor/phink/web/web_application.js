@@ -1,9 +1,9 @@
 'use strict';
-var NWebObject = require('./web_object.js');
-var NWebRouter = require('./web_router.js');
-var NRestRouter = require('../rest/rest_router.js');
+let NWebObject = require('./web_object.js');
+let NWebRouter = require('./web_router.js');
+let NRestRouter = require('../rest/rest_router.js');
 
-var bootstrap = require('../bootstrap');
+let bootstrap = require('../bootstrap');
 
 class NestJSWebApplication extends NWebObject {
     constructor() {
@@ -17,8 +17,8 @@ class NestJSWebApplication extends NWebObject {
     static create(url, port, callback) {
         require('http').createServer(function (req, res) {
             //console.log(req.headers);
-            var body = [];
-            var the = this;
+            let body = [];
+            let the = this;
 
             req.on('error', function (err) {
                 console.error(err);
@@ -36,14 +36,14 @@ class NestJSWebApplication extends NWebObject {
                 if (req.method == 'POST') {
 
 
-                    var post = require('querystring').parse(body);
+                    let post = require('querystring').parse(body);
                     console.log('POST DATA BEGIN');
                     console.log(require('sys').inspect(post));
                     console.log(post);
                     console.log('END POST DATA');
                 }
 
-                var router = null;
+                let router = null;
                 if (req.url.indexOf("/api/") > -1) {
                     router = new NRestRouter(req, res);
                 } else {
@@ -83,7 +83,7 @@ class NestJSWebApplication extends NWebObject {
 
 
         }).listen(port);
-    };
+    }
 }
 
 module.exports = NestJSWebApplication;

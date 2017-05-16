@@ -1,35 +1,37 @@
 'use strict';
 
-var NestJSObject = function (parent) {
-    this.id = '';
-    this.name = '';
-    this.parent = (parent !== undefined) ? parent : null;
-};
+class NestJSObject {
+    constructor (parent) {
+        this.id = '';
+        this.name = '';
+        this.parent = (parent !== undefined) ? parent : null;
+    }
 
-NestJSObject.prototype = {
-    setId: function (value) {
+    set Id(value) {
         this.id = value;
 
         return this;
-    },
-    getId: function () {
+    }
+    get Id () {
         return this.id;
-    },
-    setName: function (value) {
+    }
+  
+    set Name (value) {
         this.name = value;
 
         return this;
-    },
-    getName: function () {
+    }
+    get Name () {
         return this.name;
-    },
-    setParent: function (parent) {
+    }
+  
+    set Parent (parent) {
         this.parent = (parent !== undefined) ? parent : null;
-    },
-    getParent: function () {
+    }
+    get Parent () {
         return this.parent;
     }
-};
+}
 
 
 module.exports = NestJSObject;

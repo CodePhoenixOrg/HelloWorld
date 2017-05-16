@@ -1,24 +1,20 @@
 'use strict';
-var fs = require('fs');
-var path = require('path');
+let NestJSObject = require(__dirname + '/../core/object.js');
 
-var NestJSObject = require(__dirname + '/../core/object.js');
+class NestJSWebObject extends NestJSObject { 
+    constructor (parent) {
+        this.Parent(parent);
+    }
 
-var NestJSWebObject = function (parent) {
-    this.setParent(parent);
-};
 
-NestJSWebObject.prototype = new NestJSObject();
-NestJSWebObject.prototype.constructor = NestJSWebObject;
+    static include (file, encoding, callback) {
+        require('fs').readFile(file, encoding, function (err, stream) {
+            if (typeof callback === 'function') {
+                callback(err, stream);
+            }
 
-NestJSWebObject.include = function (file, encoding, callback) {
-    fs.readFile(file, encoding, function (err, stream) {
-        if (typeof callback === 'function') {
-            callback(err, stream);
-        }
-
-    });
-
-};
+        });
+    }
+}
 
 module.exports = NestJSWebObject;

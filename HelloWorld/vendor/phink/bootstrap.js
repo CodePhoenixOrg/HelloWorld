@@ -1,8 +1,8 @@
 'use strict';
-var path = require('path');
-var fs = require('fs');
+let path = require('path');
+let fs = require('fs');
 
-var folders = __dirname.split(path.sep);
+let folders = __dirname.split(path.sep);
 
 //folders.pop();
 
@@ -12,22 +12,22 @@ folders.pop();
 folders.pop();
 
 global.SITE_ROOT = folders.join(path.sep) + path.sep;
-global.APP_ROOT = SITE_ROOT + 'app' + path.sep;
-global.APP_DATA = APP_ROOT + 'data' + path.sep;
-global.APP_MODELS = APP_ROOT + 'models' + path.sep;
-global.APP_CONTROLLERS = APP_ROOT + 'controllers' + path.sep;
-global.APP_VIEWS = APP_ROOT + 'views' + path.sep;
-global.DOCUMENT_ROOT = SITE_ROOT + 'web' + path.sep;
+global.APP_ROOT = global.SITE_ROOT + 'app' + path.sep;
+global.APP_DATA = global.APP_ROOT + 'data' + path.sep;
+global.APP_MODELS = global.APP_ROOT + 'models' + path.sep;
+global.APP_CONTROLLERS = global.APP_ROOT + 'controllers' + path.sep;
+global.APP_VIEWS = global.APP_ROOT + 'views' + path.sep;
+global.DOCUMENT_ROOT = global.SITE_ROOT + 'web' + path.sep;
 global.DIRECTORY_SEPARATOR = path.sep;
 
-var BootStrap = function() {};
+let BootStrap = function() {};
 
 BootStrap.init = function() {
 
-    var _concat = function(srcdir, srctree, destfile) {
-        var content = "";
+    let _concat = function(srcdir, srctree, destfile) {
+        let content = "";
 
-        for(var i = 0; i < srctree.length; i++) {
+        for(let i = 0; i < srctree.length; i++) {
             content += fs.readFileSync(srcdir + srctree[i]) + "\n";
         }
         fs.writeFileSync(destfile, content, {encoding: 'utf-8', mode: 0o666, flag: 'w'});
@@ -35,9 +35,9 @@ BootStrap.init = function() {
     }
 
 //".." + path.sep + 
-    var outfile = SITE_ROOT + "vendor" + path.sep + "phink" + path.sep + "phink.js";
-    // var dir = __dirname + path.sep + "server" + path.sep;
-    // var tree = [ 
+    let outfile = global.SITE_ROOT + "vendor" + path.sep + "phink" + path.sep + "phink.js";
+    // let dir = __dirname + path.sep + "server" + path.sep;
+    // let tree = [ 
     //     "core.js", 
     //     "core" + path.sep + "object.js", 
     //     "rest" + path.sep + "rest_router.js", 
@@ -46,8 +46,8 @@ BootStrap.init = function() {
     //     "web" + path.sep + "web_application.js", 
     // ];
     
-    var dir = PHINK_ROOT + "client" + path.sep;
-    var tree = [ 
+    let dir = global.PHINK_ROOT + "client" + path.sep;
+    let tree = [ 
         "main.js", 
         "core" + path.sep + "url.js", 
         "core" + path.sep + "registry.js", 

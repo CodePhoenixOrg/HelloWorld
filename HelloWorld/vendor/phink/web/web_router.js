@@ -1,31 +1,28 @@
 'use strict';
-var NestJSRouter = require('../core/base_router.js');
+let NestJSRouter = require('../core/base_router.js');
 
-var NestJSWebRouter = function (req, res) {
-    this.filePath = '';
-    this.request = req;
-    this.response = res;
-    this.mimetype = '';
-    this.encoding = '';
-    this.extension = '';
-    this.viewName = '';
-}
+class NestJSWebRouter extends NestJSRouter {
+    constructor (req, res) {
+        this.filePath = '';
+        this.request = req;
+        this.response = res;
+        this.mimetype = '';
+        this.encoding = '';
+        this.extension = '';
+        this.viewName = '';
+    }
 
-NestJSWebRouter.prototype = new NestJSRouter();
-NestJSWebRouter.prototype.constructor = NestJSWebRouter;
-
-NestJSWebRouter.prototype.translate = function(callback)
+translate (callback)
 {
 
-    var url = (this.request.url === '/') ? 'index.html' : this.request.url;
-    var dotoffset = url.lastIndexOf('.');
-    var baseurl = require('url').parse(url);
+    let url = (this.request.url === '/') ? 'index.html' : this.request.url;
+    let baseurl = require('url').parse(url);
     this.viewName = baseurl.pathname;
     this.extension = require('path').extname(this.viewName);
-    var dotoffset = this.viewName.lastIndexOf('.');
+    let dotoffset = this.viewName.lastIndexOf('.');
     this.viewName = (dotoffset > -1) ? this.viewName.substring(0, dotoffset) : this.viewName;
 
-    var mime = (this.extension === '') ? ['text/plain', 'utf-8'] :
+    let mime = (this.extension === '') ? ['text/plain', 'utf-8'] :
         {
             '.html': ['text/html', 'utf-8'],
             '.css': ['text/css', 'utf-8'],
@@ -41,23 +38,23 @@ NestJSWebRouter.prototype.translate = function(callback)
     this.encoding = mime[1];
     this.mimetype = mime[0];
 
-    this.filePath = (this.extension === '.html') ? APP_ROOT + 'views/' + url : (this.extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? PHINK_ROOT + 'phink.js' : DOCUMENT_ROOT + url;
+    this.filePath = (this.extension === '.html') ? global.APP_ROOT + 'views/' + url : (this.extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? global.PHINK_ROOT + 'phink.js' : global.DOCUMENT_ROOT + url;
  
     require('fs').exists(this.filePath, function(exists) {
         callback(exists);
     });
 }
 
-NestJSWebRouter.prototype.dispatch = function(callback) {
+dispatch (callback) {
 
-    var encoding = (this.encoding !== '') ? { 'encoding': this.encoding } : null;
-    var res = this.response;
-    var req = this.request;
-    var mime = this.mimetype;
+    let encoding = (this.encoding !== '') ? { 'encoding': this.encoding } : null;
+    let res = this.response;
+    let req = this.request;
+    let mime = this.mimetype;
 
     // if(this.extension === '.html') {
-    //     var Controller = require(APP_CONTROLLERS + this.viewName + '.js');
-    //     var ctrl = new Controller(this.viewName);
+    //     let Controller = require(APP_CONTROLLERS + this.viewName + '.js');
+    //     let ctrl = new Controller(this.viewName);
     //     ctrl.render(function(stream) {
     //         callback(req, res, stream);
     //     });
@@ -75,8 +72,9 @@ NestJSWebRouter.prototype.dispatch = function(callback) {
         } else {
             console.log(err);
         }
-    });
+    })
 
+}
 }
 
 module.exports = NestJSWebRouter;

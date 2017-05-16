@@ -1,21 +1,21 @@
 'use strict';
-NestJSWebObject = require('../web/web_object.js');
+let NestJSWebObject = require('../web/web_object.js');
 
-var NestJSMVCController = function (viewName) {
+class NestJSMVCController extends NestJSWebObject {
+  constructor (viewName) {
     this.viewName = viewName;
-    NestJSWebObject.apply(this, arguments);
-};
+    this.view = new(require(global.PHINK_ROOT + 'mvc/view'))(this.viewName);
+}
 
-NestJSMVCController.prototype = new NestJSWebObject();
-NestJSMVCController.prototype.constructor = NestJSMVCController;
 
-NestJSMVCController.prototype.load = function () {}
 
-NestJSMVCController.prototype.view = new(require(PHINK_ROOT + 'mvc/view'))(this.viewName);
+load  () {}
 
-NestJSMVCController.prototype.render = function (callback) {
+
+
+render (callback) {
     console.log("RENDER");
-    var self = this;
+    let self = this;
     this.load().bind(this).then(function () {
         self.parse(function (data) {
             callback(data);
@@ -24,12 +24,12 @@ NestJSMVCController.prototype.render = function (callback) {
 
 }
 
-NestJSMVCController.prototype.parse = function (callback) {
+parse (callback) {
     this.view.getTemplate(function (err, template) {
-        var matches = template.match("/(<% [a-z]+ %>)/");
+        let matches = template.match("/(<% [a-z]+ %>)/");
 
         matches.forEach(function (match) {
-            var variable = match.replace(/%\>/, '', match.replace(/\<%/, ''));
+            let variable = match.replace(/%\>/, '', match.replace(/\<%/, ''));
             template = template.replace(match, this[variable]);
         });
 
@@ -38,5 +38,5 @@ NestJSMVCController.prototype.parse = function (callback) {
     });
 
 }
-
+}
 module.exports = NestJSMVCController;
