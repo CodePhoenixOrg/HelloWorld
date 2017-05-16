@@ -1,7 +1,7 @@
 'use strict';
 
 class NestJSObject {
-    constructor (parent) {
+    constructor(parent) {
         this.id = '';
         this.name = '';
         this.parent = (parent !== undefined) ? parent : null;
@@ -12,23 +12,23 @@ class NestJSObject {
 
         return this;
     }
-    get Id () {
+    get Id() {
         return this.id;
     }
-  
-    set Name (value) {
+
+    set Name(value) {
         this.name = value;
 
         return this;
     }
-    get Name () {
+    get Name() {
         return this.name;
     }
-  
-    set Parent (parent) {
+
+    set Parent(parent) {
         this.parent = (parent !== undefined) ? parent : null;
     }
-    get Parent () {
+    get Parent() {
         return this.parent;
     }
 }

@@ -9,7 +9,7 @@ class NestJSWebApplication extends NWebObject {
     constructor() {
         this._headers = null;
     }
-    
+
     get headers() {
         return this._headers;
     }
@@ -45,9 +45,9 @@ class NestJSWebApplication extends NWebObject {
 
                 let router = null;
                 if (req.url.indexOf("/api/") > -1) {
-                    router = new NRestRouter(req, res);
+                    router = new NRestRouter(this, req, res);
                 } else {
-                    router = new NWebRouter(req, res);
+                    router = new NWebRouter(this, req, res);
                 }
 
                 console.log(req.url);

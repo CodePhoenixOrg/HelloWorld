@@ -1,26 +1,28 @@
 'use strict';
 let NestJSWebObject = require('../web/web_object.js');
 
-class NestJSRouter extends NestJSWebObject { 
-    constructor (req, res) {
+class NestJSRouter extends NestJSWebObject {
+
+    constructor(parent, req, res) {
+
+        super(parent);
         this.request = req;
         this.response = res;
         this.mimetype = '';
         this.encoding = '';
     }
 
-
-    get MimeType () {
+    get MimeType() {
         return this.mimetype;
     }
 
-    get Encoding () {
+    get Encoding() {
         return this.encoding;
     }
 
-    translate (callback) {}
+    translate(callback) { }
 
-    dispatch (callback) {}
+    dispatch(callback) { }
 }
 
 module.exports = NestJSRouter;

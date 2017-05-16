@@ -20,21 +20,21 @@ global.APP_VIEWS = global.APP_ROOT + 'views' + path.sep;
 global.DOCUMENT_ROOT = global.SITE_ROOT + 'web' + path.sep;
 global.DIRECTORY_SEPARATOR = path.sep;
 
-let BootStrap = function() {};
+let BootStrap = function () { };
 
-BootStrap.init = function() {
+BootStrap.init = function () {
 
-    let _concat = function(srcdir, srctree, destfile) {
+    let _concat = function (srcdir, srctree, destfile) {
         let content = "";
 
-        for(let i = 0; i < srctree.length; i++) {
+        for (let i = 0; i < srctree.length; i++) {
             content += fs.readFileSync(srcdir + srctree[i]) + "\n";
         }
-        fs.writeFileSync(destfile, content, {encoding: 'utf-8', mode: 0o666, flag: 'w'});
+        fs.writeFileSync(destfile, content, { encoding: 'utf-8', mode: 0o666, flag: 'w' });
 
     }
 
-//".." + path.sep + 
+    //".." + path.sep + 
     let outfile = global.SITE_ROOT + "vendor" + path.sep + "phink" + path.sep + "phink.js";
     // let dir = __dirname + path.sep + "server" + path.sep;
     // let tree = [ 
@@ -45,25 +45,25 @@ BootStrap.init = function() {
     //     "web" + path.sep + "web_object.js", 
     //     "web" + path.sep + "web_application.js", 
     // ];
-    
+
     let dir = global.PHINK_ROOT + "client" + path.sep;
-    let tree = [ 
-        "main.js", 
-        "core" + path.sep + "url.js", 
-        "core" + path.sep + "registry.js", 
-        "utils" + path.sep + "text.js", 
-        "core" + path.sep + "object.js", 
-        "web" + path.sep + "web_object.js", 
-        "web" + path.sep + "web_application.js", 
-        "web" + path.sep + "rest.js", 
-        "mvc" + path.sep + "view.js", 
+    let tree = [
+        "main.js",
+        "core" + path.sep + "url.js",
+        "core" + path.sep + "registry.js",
+        "utils" + path.sep + "text.js",
+        "core" + path.sep + "object.js",
+        "web" + path.sep + "web_object.js",
+        "web" + path.sep + "web_application.js",
+        "web" + path.sep + "rest.js",
+        "mvc" + path.sep + "view.js",
         "mvc" + path.sep + "controller.js",
-        "web" + path.sep + "ui" + path.sep + "plugin.js", 
-        "web" + path.sep + "ui" + path.sep + "plugin" + path.sep + "accordion.js", 
-        "web" + path.sep + "ui" + path.sep + "plugin" + path.sep + "list.js", 
+        "web" + path.sep + "ui" + path.sep + "plugin.js",
+        "web" + path.sep + "ui" + path.sep + "plugin" + path.sep + "accordion.js",
+        "web" + path.sep + "ui" + path.sep + "plugin" + path.sep + "list.js",
         "web" + path.sep + "ui" + path.sep + "plugin" + path.sep + "table.js"
     ];
-    
+
     _concat(dir, tree, outfile);
 
 }
