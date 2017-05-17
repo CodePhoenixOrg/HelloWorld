@@ -4,8 +4,8 @@ let NestJSWebObject = require('../web/web_object.js');
 class NestJSRouter extends NestJSWebObject {
 
     constructor(parent, req, res) {
-        NestJSWebObject.bind(parent);
         super(parent);
+
         this.request = req;
         this.response = res;
         this.mimetype = '';

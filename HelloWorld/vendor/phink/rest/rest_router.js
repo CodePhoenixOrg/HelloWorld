@@ -6,8 +6,8 @@ var fs = require('fs');
 
 class NestJSRestRouter extends NestJSRouter {
 	constructor(parent, req, res) {
-		NestJSRouter.bind(parent, req, res);
 		super(parent, req, res);
+
 		this.application = null;
 		this.apiName = '';
 		this.className = '';

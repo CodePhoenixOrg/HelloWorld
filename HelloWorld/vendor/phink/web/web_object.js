@@ -3,7 +3,6 @@ let NestJSObject = require(__dirname + '/../core/object.js');
 
 class NestJSWebObject extends NestJSObject {
     constructor(parent) {
-        NestJSObject.bind(parent);
         super(parent)
 
     }

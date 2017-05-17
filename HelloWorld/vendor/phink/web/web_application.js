@@ -8,6 +8,7 @@ let bootstrap = require('../bootstrap');
 class NestJSWebApplication extends NWebObject {
     constructor() {
         super(this);
+        
         this._headers = null;
     }
 

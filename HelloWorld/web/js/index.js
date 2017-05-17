@@ -8,7 +8,6 @@ var helloMain = helloWorld.createController(helloWorld.main, 'helloWorld.main')
     .actions({
         getCollection: function () {
             coll.fetch(function (data) {
-                console.log(data);
                 var result = '<ol>';
                 data = data.collection;
 
@@ -69,7 +68,7 @@ var helloMain = helloWorld.createController(helloWorld.main, 'helloWorld.main')
         pl.afterAddTrack = this.getUserFavorites;
         pl.afterRemoveTrack = this.getUserFavorites;
 
-        this.getCollection()
+        // this.getCollection()
         this.getUserFavorites();
 
 

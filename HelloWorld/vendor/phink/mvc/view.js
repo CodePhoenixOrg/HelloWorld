@@ -4,8 +4,8 @@ let NestJSWebObject = require('../web/web_object.js');
 class NestJSMVCView extends NestJSWebObject {
 
     constructor(parent, viewName) {
-        NestJSWebObject.bind(parent);
         super(parent);
+        
         this.viewName = viewName;
         this.viewFileName = global.APP_VIEWS + viewName + '.html';
 

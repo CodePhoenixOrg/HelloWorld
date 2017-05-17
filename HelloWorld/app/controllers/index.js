@@ -4,8 +4,6 @@ let Controller = require(PHINK_ROOT + 'mvc/controller');
 
 class Index extends Controller {
     constructor(parent, viewName) {
-
-        Controller.bind(parent, viewName);
         super(parent, viewName);
 
         this._banner = "SoundLib";
@@ -25,13 +23,12 @@ class Index extends Controller {
         return this._banner;
     }
 
-    load() {
+    load(callback) {
 
         let coll = require(global.APP_MODELS + 'collection');
         let the = this;
         coll.getAllTracks(function (data) {
 
-            console.log(data);
             let result = '<ol>';
             data = data.collection;
 
@@ -50,7 +47,9 @@ class Index extends Controller {
 
             the._userid = 1;
 
+            callback(true);
         })
+
     }
 }
 
