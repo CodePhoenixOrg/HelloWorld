@@ -26,11 +26,11 @@ class NestJSWebApplication extends NWebObject {
                 console.error(err);
             }).on('data', function (chunk) {
                 body.push(chunk);
-                console.log(chunk);
+                // console.log(chunk);
             }).on('end', function () {
 
                 body = Buffer.concat(body).toString();
-                console.log(body);
+                // console.log(body);
                 req.on('error', function (err) {
                     console.error(err);
                 })
@@ -51,6 +51,7 @@ class NestJSWebApplication extends NWebObject {
                 } else {
                     router = new NWebRouter(this, req, res);
                 }
+                router.parameters = (body !== '') ? JSON.parse(body) : {};
 
                 console.log(req.url);
                 router.translate(function (exists) {

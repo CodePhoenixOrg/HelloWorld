@@ -1,20 +1,15 @@
+'use strict';
 var coll = require(APP_MODELS + 'collection');
 
-/**
- * Description of playlist
- *
- * @author David
- */
-var Collection = function() {};
+var Collection = function () { };
 
 //put your code here
-Collection.get = function(callback) {
-    //var result = Playlist::getUserFavorites($userId);
-    coll.getAllTracks(function(data) {
+Collection.get = function (callback) {
+    coll.getAllTracks(function (data) {
         callback(data);
     });
 }
- 
+
 //Playlist.prototype.put function($playlist, $trackId) {
 //    $return = \SoundLib\Models\Playlist::addTrack($playlist, $trackId);
 //    $this->response->setData($return);

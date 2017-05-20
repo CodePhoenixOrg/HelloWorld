@@ -68,6 +68,7 @@ var helloMain = helloWorld.createController(helloWorld.main, 'helloWorld.main')
         pl.afterAddTrack = this.getUserFavorites;
         pl.afterRemoveTrack = this.getUserFavorites;
 
+        usr.getInfo();
         // this.getCollection()
         this.getUserFavorites();
 

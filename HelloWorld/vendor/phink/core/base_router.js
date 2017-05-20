@@ -10,6 +10,14 @@ class NestJSRouter extends NestJSWebObject {
         this.response = res;
         this.mimetype = '';
         this.encoding = '';
+        this._parameters = {};
+    }
+
+    get parameters() {
+        return this._parameters;
+    }
+    set parameters(parameters) {
+        this._parameters = parameters;
     }
 
     get MimeType() {

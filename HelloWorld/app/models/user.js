@@ -1,12 +1,8 @@
-/**
- * Description of user
- *
- * @author David
- */
-var User = function () {}
+'use strict';
+var User = function () {};
 
-    //put your code here
-User.getInfo = function (userId)
+//put your code here
+User.getInfo = function (userId, callback)
 {
     var result = {};
     result.info = [];
@@ -19,14 +15,13 @@ User.getInfo = function (userId)
 select usr_id as id, usr_name as name, usr_email as email \
 from user \
 where usr_id = ? \
-SELECT \
-"
+";
 
     stmt.connect();
     stmt.query(sql, [userId], function(err, rows, fields) {
       
       rows.forEach(function(element) {
-            result.info.push(element);
+        result.info.push(element);
       })
 
       callback(result);
@@ -35,3 +30,7 @@ SELECT \
     stmt.end();
 
 }
+
+console.log(__filename);
+
+module.exports = User;

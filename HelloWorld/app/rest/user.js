@@ -1,26 +1,15 @@
-/**
- * Description of playlist
- *
- * @author David
- */
-var User = function() {
+'use strict';
+var usr = require(APP_MODELS + 'user');
 
-};
+var User = function() {};
 
 //put your code here
-User.get = function() {
-    //var result = Playlist::getUserFavorites($userId);
-    return {'name': 'Lambda'};
-}
- 
-//Playlist.prototype.put function($playlist, $trackId) {
-//    $return = \SoundLib\Models\Playlist::addTrack($playlist, $trackId);
-//    $this->response->setData($return);
-//}
-
-//Playlist.prototype.delete = function($trackId) {
-//    $return = \SoundLib\Models\Playlist::removeTrack($trackId);
-//    $this->response->setData($return);
-//}
+User.get = function(callback) {
+    var userId = 1;
+    
+    usr.getInfo(userId, function(data) {
+        callback(data);
+    });    
+};
 
 module.exports = User;

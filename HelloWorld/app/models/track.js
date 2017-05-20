@@ -1,11 +1,8 @@
-/**
- * Description of Playlist
- *
- * @author David
- */
-var Track = function () {}
+'use strict';
+var Track = function () {};
 
-Track.getTrackById = function (trackId)
+//put your code here
+Track.getTrackById = function (trackId, callback)
 {
     var result = {};
     result.track = [];
@@ -25,7 +22,7 @@ where trk_id = ? \
     stmt.query(sql, [trackId], function(err, rows, fields) {
       
       rows.forEach(function(element) {
-            result.track.push({'track': element.track});
+            result.track.push(element);
       })
 
       callback(result);
@@ -34,4 +31,6 @@ where trk_id = ? \
     stmt.end(); 
 
 }
+console.log(__filename);
 
+module.exports = Track;

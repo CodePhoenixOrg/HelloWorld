@@ -1,21 +1,20 @@
-
-/**
- * Description of Playlist
- *
- * @author David
- */
+'use strict';
 var Playlist = function() {};
 
-    //put your code here
+Playlist.getConnection = function () {
+    var conf = require(global.APP_DATA + 'configuration');
+    var mysql = require('mysql').createConnection(conf.parameters);
+    return mysql;    
+}
+
+//put your code here
 Playlist.getUserFavorites = function (userId, callback) {
     
     var result = {};
     result.playlist = [];
     result.pid = 0;
 
-    var mysql = require('mysql');
-    var conf = require(APP_DATA + 'configuration');
-    var stmt = mysql.createConnection(conf.parameters);
+    var mysql = Playlist.getConnection();
 
     var sql = " \
 select p.pls_id as pid, plc_id as id, art_name as artist, trk_title as title, trk_duration as duration \
@@ -27,8 +26,8 @@ left join artist a on t.art_id = a.art_id \
 where u.usr_id = ? \
 ";
 
-    stmt.connect();
-    stmt.query(sql, [userId], function(err, rows, fields) {
+    mysql.connect();
+    mysql.query(sql, [userId], function(err, rows, fields) {
       
       rows.forEach(function(element) {
             result.pid = element.pid;
@@ -38,29 +37,37 @@ where u.usr_id = ? \
       callback(result);
         
     });
-    stmt.end(); 
+    mysql.end(); 
       
 }
 
-//     public static function addTrack($playlist, $trackId)
-//     {
-//         //\SoundLib\Lib\Log::debug('GOING TO ADD : ' . print_r(['playlist' => $playlist, 'trackId' => $trackId], true));
+Playlist.addTrack = function(playlist, trackId, callback)
+{
+    //\SoundLib\Lib\Log::debug('GOING TO ADD : ' . print_r(['playlist' => $playlist, 'trackId' => $trackId], true));
 
-//         $cnn = new Connection();
-//         $stmt = $cnn->open();
-        
-//         $sql = <<<INSERT
-// insert into playlist_content (`pls_id`, `trk_id`) values(:playlist, :trackId)
-// INSERT;
-        
-//         $res = $stmt->prepare($sql);
-//         $res->execute([':playlist' => $playlist, ':trackId' => $trackId]);
-        
-//         $affectedRows = $res->rowCount();
-        
-//         return ['inserted' => $affectedRows, 'playlist' => $playlist, 'trackId' => $trackId];
-//     }
+    var mysql = Playlist.getConnection();
     
+    var sql = " \
+insert into playlist_content (`pls_id`, `trk_id`) values(?, ?) \
+";
+    
+    mysql.connect();
+    mysql.query(sql, [playlist, trackId], function(err, rows, fields) {
+        var data = null;
+        if(!err) {
+            var affectedRows = 1;
+        
+            data = {'inserted': affectedRows, 'playlist': playlist, 'trackId': trackId};
+
+        } else {
+            data = {'error': err};
+        }
+
+        callback(data);
+    });
+    
+}
+
 //     public static function removeTrack($trackId)
 //     {
 //         $cnn = new Connection();
@@ -77,5 +84,7 @@ where u.usr_id = ? \
         
 //         return ['deleted' => $affectedRows, 'trackId' => $trackId];
 //     }
+
+console.log(__filename);
 
 module.exports = Playlist;

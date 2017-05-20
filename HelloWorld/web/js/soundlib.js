@@ -8,7 +8,7 @@ SoundLib.Collection = function () {}
 
 SoundLib.Playlist = function (userId) {
     this.currentUser = userId
-    this.cuurentPlaylist = 0
+    this.cuurentPlaylist = 1
 }
 
 
@@ -63,6 +63,7 @@ SoundLib.Playlist.prototype.getFavorites = function (callback) {
 SoundLib.Playlist.prototype.addTrack = function (trackId) {
     var the = this
     Phink.Web.Rest.put('/api/playlist/' + this.currentPlaylist, {
+        'playlist': this.cuurentPlaylist,
         'track': trackId
     }, function (data) {
         if (data.inserted == 1) {

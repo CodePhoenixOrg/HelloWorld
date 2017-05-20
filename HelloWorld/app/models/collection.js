@@ -1,12 +1,7 @@
+'use strict';
+var Collection = function() {};
 
-/**
- * Description of Playlist
- *
- * @author David
- */
-var Collection = function() {}
-  
-    //put your code here
+//put your code here
 Collection.getAllTracks = function(callback) {
     var result = {};
     result.collection = [];
@@ -36,5 +31,7 @@ limit 0, 25 \
     stmt.end(); 
     
 }
+
+console.log(__filename);
 
 module.exports = Collection;

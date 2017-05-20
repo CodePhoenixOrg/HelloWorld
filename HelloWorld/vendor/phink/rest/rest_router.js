@@ -8,20 +8,13 @@ class NestJSRestRouter extends NestJSRouter {
 	constructor(parent, req, res) {
 		super(parent, req, res);
 
-		this.application = null;
 		this.apiName = '';
 		this.className = '';
 		this.baseNamespace = '';
 		this.apiFileName = '';
-		this.parameter = '';
-		//this.application = app;
-		// this.request = req;
-		// this.response = res;
 	}
 
 	translate(callback) {
-		//var nsParts = ('\\', __NAMESPACE__);
-		//this.baseNamespace = array_shift(nsParts);
 
 		var qstring = this.request.url.replace(/\/api\//, '');
 		var qParts = qstring.split('/');
@@ -44,7 +37,6 @@ class NestJSRestRouter extends NestJSRouter {
 		var method = this.request.method.toLowerCase();
 		console.log(method);
 
-		//var fqObject = this.baseNamespace + '\\Rest\\' + this.className;
 		var fqObject = require(this.apiFileName);
 		//var instance = new fqObject();
 
@@ -53,6 +45,23 @@ class NestJSRestRouter extends NestJSRouter {
 			//result = fqObject[method]();
 			var res = this.response;
 			var req = this.request;
+			
+			var data = this.parameters;
+
+			console.log(data);
+
+			Object.keys(data).forEach(function (key) {
+				const value = data[key];
+				const fqProperty = fqObject[key];
+
+				if (typeof fqProperty === 'function') {
+					fqProperty(value);
+					var res = fqProperty();
+					console.log(res);
+				}
+				
+			});
+
 			fqObject[method](function (data) {
 				//res.statusCode = 200;
 				//res.setHeader('Content-Type', 'application/json');
