@@ -1,0 +1,14 @@
+{
+    "rest": {
+        "get": {
+            "/api/playlist/([0-9]+)": "/api/playlist/playlist",
+            "/api/collection": "/api/collection"
+        },
+        "put": {
+            "/api/playlist/([0-9]+)": "/api/playlist/playlist"
+        },
+        "delete": {
+            "/api/playlist/([0-9]+)": "/api/playlist/track"
+        }
+    }
+}

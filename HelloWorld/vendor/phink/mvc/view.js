@@ -6,13 +6,13 @@ class NestJSMVCView extends NestJSWebObject {
     constructor(parent, viewName) {
         super(parent);
         
-        this.viewName = viewName;
-        this.viewFileName = global.APP_VIEWS + viewName + '.html';
+        this._viewName = viewName;
+        this._viewFileName = global.APP_VIEWS + viewName + '.html';
 
     }
 
     getTemplate(callback) {
-        require('fs').readFile(this.viewFileName, 'utf-8', function (err, data) {
+        require('fs').readFile(this._viewFileName, 'utf-8', function (err, data) {
             callback(err, data);
         });
     }

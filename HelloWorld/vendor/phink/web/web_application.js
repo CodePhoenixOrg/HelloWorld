@@ -2,6 +2,7 @@
 let NWebObject = require('./web_object.js');
 let NWebRouter = require('./web_router.js');
 let NRestRouter = require('../rest/rest_router.js');
+let NBaseRouter = require('../core/base_router.js');
 
 let bootstrap = require('../bootstrap');
 
@@ -35,21 +36,13 @@ class NestJSWebApplication extends NWebObject {
                     console.error(err);
                 })
 
-                if (req.method == 'POST') {
+                let router = new NBaseRouter(this, req, res);
+                let route = router.match();
 
-
-                    let post = require('querystring').parse(body);
-                    console.log('POST DATA BEGIN');
-                    console.log(require('sys').inspect(post));
-                    console.log(post);
-                    console.log('END POST DATA');
-                }
-
-                let router = null;
                 if (req.url.indexOf("/api/") > -1) {
-                    router = new NRestRouter(this, req, res);
+                    router = new NRestRouter(router);
                 } else {
-                    router = new NWebRouter(this, req, res);
+                    router = new NWebRouter(router);
                 }
                 router.parameters = (body !== '') ? JSON.parse(body) : {};
 

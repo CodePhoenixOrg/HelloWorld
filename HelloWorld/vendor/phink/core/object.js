@@ -2,34 +2,34 @@
 
 class NestJSObject {
     constructor(parent) {
-        this.id = '';
-        this.name = '';
-        this.parent = (parent !== undefined) ? parent : null;
+        this._id = '';
+        this._name = '';
+        this._parent = (parent !== undefined) ? parent : null;
     }
 
-    set Id(value) {
-        this.id = value;
-
-        return this;
-    }
-    get Id() {
-        return this.id;
-    }
-
-    set Name(value) {
-        this.name = value;
+    set id(value) {
+        this._id = value;
 
         return this;
     }
-    get Name() {
-        return this.name;
+    get id() {
+        return this._id;
     }
 
-    set Parent(parent) {
-        this.parent = (parent !== undefined) ? parent : null;
+    set name(value) {
+        this._name = value;
+
+        return this;
     }
-    get Parent() {
-        return this.parent;
+    get name() {
+        return this._name;
+    }
+
+    set parent(parent) {
+        this._parent = (parent !== undefined) ? parent : null;
+    }
+    get parent() {
+        return this._parent;
     }
 }
 

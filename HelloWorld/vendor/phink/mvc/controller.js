@@ -5,8 +5,8 @@ class NestJSMVCController extends NestJSWebObject {
     constructor(parent, viewName) {
         super(parent);
         
-        this.viewName = viewName;
-        this.view = new (require(global.PHINK_ROOT + 'mvc/view'))(parent, viewName);
+        this._viewName = viewName;
+        this._view = new (require(global.PHINK_ROOT + 'mvc/view'))(parent, viewName);
     }
 
     load() { }
@@ -14,7 +14,7 @@ class NestJSMVCController extends NestJSWebObject {
     render(callback) {
         console.log("RENDER");
 
-        // this.load();
+        // this._load();
         let the = this;
         this.load(function(ready) { 
             the.parse(ready, function (data) {
@@ -26,7 +26,7 @@ class NestJSMVCController extends NestJSWebObject {
     parse(ready, callback) {
         console.log("PARSE");
         let the = this;
-        this.view.getTemplate(function (err, template) {
+        this._view.getTemplate(function (err, template) {
             // console.log(template);
             let matches = template.match(/(\<% [a-z]+ %\>)/g);
 

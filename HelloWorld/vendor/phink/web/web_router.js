@@ -5,23 +5,21 @@ class NestJSWebRouter extends NestJSRouter {
     constructor(parent, req, res) {
         super(parent, req, res);
         
-        this.filePath = '';
-        this.mimetype = '';
-        this.encoding = '';
-        this.extension = '';
-        this.viewName = '';
+        this._filePath = '';
+        this._extension = '';
+        this._viewName = '';
 
     }
 
     translate(callback) {
 
-        let url = (this.request.url === '/') ? 'index.html' : this.request.url;
+        let url = (this._request.url === '/') ? 'index.html' : this._request.url;
         let baseurl = require('url').parse(url);
-        this.viewName = baseurl.pathname;
-        this.extension = require('path').extname(this.viewName);
-        let dotoffset = this.viewName.lastIndexOf('.');
-        this.viewName = (dotoffset > -1) ? this.viewName.substring(0, dotoffset) : this.viewName;
-        let mime = (this.extension === '') ? ['text/plain', 'utf-8'] :
+        this._viewName = baseurl.pathname;
+        this._extension = require('path').extname(this._viewName);
+        let dotoffset = this._viewName.lastIndexOf('.');
+        this._viewName = (dotoffset > -1) ? this._viewName.substring(0, dotoffset) : this._viewName;
+        let mime = (this._extension === '') ? ['text/plain', 'utf-8'] :
             {
                 '.html': ['text/html', 'utf-8'],
                 '.css': ['text/css', 'utf-8'],
@@ -32,27 +30,27 @@ class NestJSWebRouter extends NestJSRouter {
                 '.ico': ['image/vnd.microsoft.icon', ''],
                 '.jpg': ['image/jpg', ''],
                 '.png': ['image/png', '']
-            }[this.extension];
+            }[this._extension];
 
-        this.encoding = mime[1];
-        this.mimetype = mime[0];
+        this._encoding = mime[1];
+        this._mimetype = mime[0];
 
-        this.filePath = (this.extension === '.html') ? global.APP_ROOT + 'views/' + url : (this.extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? global.PHINK_ROOT + 'phink.js' : global.DOCUMENT_ROOT + url;
+        this._filePath = (this._extension === '.html') ? global.APP_ROOT + 'views/' + url : (this._extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? global.PHINK_ROOT + 'phink.js' : global.DOCUMENT_ROOT + url;
 
-        require('fs').exists(this.filePath, function (exists) {
+        require('fs').exists(this._filePath, function (exists) {
             callback(exists);
         });
     }
 
     dispatch(callback) {
-        let encoding = (this.encoding !== '') ? { 'encoding': this.encoding } : null;
-        let res = this.response;
-        let req = this.request;
-        let mime = this.mimetype;
+        let encoding = (this._encoding !== '') ? { 'encoding': this._encoding } : null;
+        let res = this._response;
+        let req = this._request;
+        let mime = this._mimetype;
 
-        if (this.extension === '.html') {
-            let Controller = require(global.APP_CONTROLLERS + this.viewName + '.js');
-            let ctrl = new Controller(this, this.viewName);
+        if (this._extension === '.html') {
+            let Controller = require(global.APP_CONTROLLERS + this._viewName + '.js');
+            let ctrl = new Controller(this, this._viewName);
             ctrl.render(function (stream) {
                 res.writeHead(200, { 'Content-Type': mime });
                 callback(req, res, stream);
@@ -61,7 +59,7 @@ class NestJSWebRouter extends NestJSRouter {
             return true;
         }
 
-        require('./web_object').include(this.filePath, encoding, function (err, stream) {
+        require('./web_object').include(this._filePath, encoding, function (err, stream) {
             if (!err) {
 
                 res.writeHead(200, { 'Content-Type': mime });

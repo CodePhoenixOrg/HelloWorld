@@ -8,45 +8,45 @@ class NestJSRestRouter extends NestJSRouter {
 	constructor(parent, req, res) {
 		super(parent, req, res);
 
-		this.apiName = '';
-		this.className = '';
-		this.baseNamespace = '';
-		this.apiFileName = '';
+		this._apiName = '';
+		this._className = '';
+		this._baseNamespace = '';
+		this._apiFileName = '';
 	}
 
 	translate(callback) {
 
 		var qstring = this.request.url.replace(/\/api\//, '');
 		var qParts = qstring.split('/');
-		this.apiName = qParts.shift();
-		this.parameter = qParts.shift();
+		this._apiName = qParts.shift();
+		this._parameter = qParts.shift();
 
-		//this.apiName = preg_replace('/[^a-z0-9_]+/i','', array_shift(qParts));
-		this.className = this.apiName;
+		//this._apiName = preg_replace('/[^a-z0-9_]+/i','', array_shift(qParts));
+		this._className = this._apiName;
 
-		this.apiFileName = global.APP_ROOT + 'rest' + path.sep + this.apiName + '.js';
-		console.log(this.apiFileName);
+		this._apiFileName = global.APP_ROOT + 'rest' + path.sep + this._apiName + '.js';
+		console.log(this._apiFileName);
 
-		fs.exists(this.apiFileName, function (exists) {
+		fs.exists(this._apiFileName, function (exists) {
 			callback(exists);
 		});
 	}
 
 	dispatch(callback) {
 		var data = [];
-		var method = this.request.method.toLowerCase();
+		var method = this._request.method.toLowerCase();
 		console.log(method);
 
-		var fqObject = require(this.apiFileName);
+		var fqObject = require(this._apiFileName);
 		//var instance = new fqObject();
 
 		var result = '';
 		if (typeof fqObject[method] === 'function') {
 			//result = fqObject[method]();
-			var res = this.response;
-			var req = this.request;
+			var res = this._response;
+			var req = this._request;
 			
-			var data = this.parameters;
+			var data = this._parameters;
 
 			console.log(data);
 
@@ -72,7 +72,7 @@ class NestJSRestRouter extends NestJSRouter {
 				}
 			});
 		} else {
-			console.log(this.className + '.' + method + ' not found');
+			console.log(this._className + '.' + method + ' not found');
 		}
 
 	}
