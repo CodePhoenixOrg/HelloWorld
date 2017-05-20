@@ -7,7 +7,7 @@ Collection.getAllTracks = function(callback) {
     result.collection = [];
   
     var mysql = require('mysql');
-    var conf = require(APP_DATA + 'configuration');
+    var conf = require(global.APP_DATA + 'configuration');
     var stmt = mysql.createConnection(conf.parameters);
 
     var sql = "\

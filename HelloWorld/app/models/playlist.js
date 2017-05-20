@@ -41,10 +41,7 @@ where u.usr_id = ? \
       
 }
 
-Playlist.addTrack = function(playlist, trackId, callback)
-{
-    //\SoundLib\Lib\Log::debug('GOING TO ADD : ' . print_r(['playlist' => $playlist, 'trackId' => $trackId], true));
-
+Playlist.addTrack = function(playlist, trackId, callback) {
     var mysql = Playlist.getConnection();
     
     var sql = " \
@@ -68,22 +65,28 @@ insert into playlist_content (`pls_id`, `trk_id`) values(?, ?) \
     
 }
 
-//     public static function removeTrack($trackId)
-//     {
-//         $cnn = new Connection();
-//         $stmt = $cnn->open();
+Playlist.removeTrack = function(trackId, callback) {
+    var mysql = Playlist.getConnection();
+
+    var sql = " \
+delete from playlist_content where plc_id = ? \
+";
+    mysql.connect();
+    mysql.query(sql, [trackId], function(err, rows, fields) {
+        var data = null;
+        if(!err) {
+            var affectedRows = 1;
         
-//         $sql = <<<DELETE
-// delete from playlist_content where plc_id = :trackId
-// DELETE;
-        
-//         $res = $stmt->prepare($sql);
-//         $res->execute([':trackId' => $trackId]);
-        
-//         $affectedRows = $res->rowCount();
-        
-//         return ['deleted' => $affectedRows, 'trackId' => $trackId];
-//     }
+            data = {'deleted': affectedRows, 'trackId': trackId};
+
+        } else {
+            data = {'error': err};
+        }
+
+        callback(data);
+    });
+
+}
 
 console.log(__filename);
 

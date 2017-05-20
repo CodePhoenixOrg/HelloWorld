@@ -25,7 +25,7 @@ Playlist.prototype.track = function(trackId) {
 }
 
 Playlist.getInstance = function() {
-    if(instance == undefined) {
+    if(instance === null) {
         instance = new Playlist();
     }
 
@@ -33,19 +33,15 @@ Playlist.getInstance = function() {
 }
 
 Playlist.playlist = function(playlistId) {
-    Playlist.getInstance();
-    return instance.playlist(playlistId);
+    return Playlist.getInstance().playlist(playlistId);
 }
 
 Playlist.track = function(trackId) {
-    Playlist.getInstance();
-    return instance.track(trackId);
+    return Playlist.getInstance().track(trackId);
 }
 
 // Get
 Playlist.get = function(callback) {
-    Playlist.getInstance();
-
     var userId = 1;
     pl.getUserFavorites(userId, function(data) {
         callback(data);
@@ -59,9 +55,10 @@ Playlist.put = function(callback) {
     });
 }
 
-//Playlist.prototype.delete = function($trackId) {
-//    $return = \SoundLib\Models\Playlist::removeTrack($trackId);
-//    $this->response->setData($return);
-//}
+Playlist.delete = function(callback) {
+    pl.removeTrack(Playlist.track(), function(data) {
+        callback(data);
+    });
+}
 
 module.exports = Playlist;
