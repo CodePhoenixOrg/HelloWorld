@@ -9,7 +9,7 @@ let bootstrap = require('../bootstrap');
 class NestJSWebApplication extends NWebObject {
     constructor() {
         super(this);
-        
+
         this._headers = null;
     }
 
@@ -37,14 +37,17 @@ class NestJSWebApplication extends NWebObject {
                 })
 
                 let router = new NBaseRouter(this, req, res);
-                let route = router.match();
+                router.match();
+                console.log('reqtype: ' + router.requestType);
+                console.log('translation: ' + router.translation);
 
-                if (req.url.indexOf("/api/") > -1) {
+                // if (req.url.indexOf("/api/") > -1) {
+                if (router.requestType === 'rest') {
                     router = new NRestRouter(router);
                 } else {
                     router = new NWebRouter(router);
                 }
-                router.parameters = (body !== '') ? JSON.parse(body) : {};
+                router.parameters = (body !== '') ? JSON.parse(body) : null;
 
                 console.log(req.url);
                 router.translate(function (exists) {
@@ -60,7 +63,7 @@ class NestJSWebApplication extends NWebObject {
                         });
                     } else {
                         res.writeHead(404, {
-                            'Content-Type': router.getMimeType()
+                            'Content-Type': router.mimeType
                         });
                         res.write("Error 404 - It looks like you are lost in middle of no ware ...");
                         req.emit('finish');

@@ -2,8 +2,8 @@
 let NestJSWebObject = require('../web/web_object.js');
 let NestJSRegistry = require('./registry.js');
 
-const WEB = 1;
-const REST = 2;
+const WEB = 'web';
+const REST = 'rest';
 
 class NestJSRouter extends NestJSWebObject {
 
@@ -13,17 +13,24 @@ class NestJSRouter extends NestJSWebObject {
             super(parent.parent);
             this._request = parent.request;
             this._response = parent.response;
+            this._translation = parent.translation;
+            this._requestType = parent.requestType;
         } else {
             super(parent);
             this._request = req;
             this._response = res;
+            this._translation = '';
+            this._requestType = WEB;
         }
 
         this._mimetype = '';
         this._encoding = '';
-        this._parameters = {};
-        this._routes = {};
+        this._parameters = null;
+        this._routes = null;
+    }
 
+    get requestType() {
+        return this._requestType;
     }
 
     get request() {
@@ -34,8 +41,40 @@ class NestJSRouter extends NestJSWebObject {
         return this._response;
     }
 
+    get translation() {
+        return this._translation;
+    }
+
     match() {
-        let result = WEB;
+        let result = 'web';
+
+        if (this.routes) {
+            let self = this;
+            Object.keys(this._routes).forEach(function (reqtype) {
+                var methods = self._routes[reqtype];
+                var method = self._request.method.toLowerCase();
+
+                if (methods[method] !== undefined) {
+                    const routes = methods[method];
+                    const url = self._request.url;
+                    Object.keys(routes).forEach(function (key) {
+                        const matches = url.replace(new RegExp(key, 'g'), routes[key]);
+
+                        if (matches !== url) {
+                            self._requestType = reqtype;
+                            self._translation = matches;
+                            return reqtype;
+                        }
+                    });
+                }
+
+            });
+        }
+
+        if(this._translation === '') {
+            this._requestType = 'web';
+            result = 'web';
+        }
 
         return result;
     }
@@ -57,6 +96,8 @@ class NestJSRouter extends NestJSWebObject {
             }
         }
 
+        this._routes = _routes;
+
         return _routes;
     }
 
@@ -75,9 +116,9 @@ class NestJSRouter extends NestJSWebObject {
         return this._encoding;
     }
 
-    translate(callback) {}
+    translate(callback) { }
 
-    dispatch(callback) {}
+    dispatch(callback) { }
 }
 
 module.exports = NestJSRouter;
