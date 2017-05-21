@@ -47,7 +47,7 @@ class NestJSWebRouter extends NestJSRouter {
         let res = this._response;
         let req = this._request;
         let mime = this._mimetype;
-
+      
         if (this._extension === '.html') {
             let Controller = require(global.APP_CONTROLLERS + this._viewName + '.js');
             let ctrl = new Controller(this, this._viewName);

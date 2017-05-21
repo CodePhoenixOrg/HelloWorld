@@ -5,23 +5,31 @@ class NestJSRestRouter extends NestJSRouter {
 	constructor(parent, req, res) {
 		super(parent, req, res);
 
-		this._apiName = '';
 		this._apiFileName = '';
 	}
 
 	translate(callback) {
 
-		console.log(this.translation);
 		if (this.translation === '') {
-			callback(false);
-			return false;
+			
+-		  var qstring = this._request.url.replace(/\/api\//, '');
+ -		var qParts = qstring.split('/');
+ -		this._className = qParts.shift();
+			
+ -		var value = qParts.shift();
+			
+			var parameter = {};
+			parameter[this._className] = value;
+			
+			if(parameter !== undefined) {
+			this._parameters = this._parameters || {};
+			Object.assign(this._parameters, parameter);
+				
+			}
+                          			
 		}
-        let baseurl = require('url').parse(this._translation, true);
-		this._apiName = require('path').basename(baseurl.pathname);
-		this._parameters = this._parameters || {};
-		Object.assign(this._parameters, baseurl.query);
 
-		this._apiFileName = global.APP_ROOT + 'rest' + global.DIRECTORY_SEPARATOR  + this._apiName + '.js';
+		this._apiFileName = global.APP_ROOT + 'rest' + global.DIRECTORY_SEPARATOR  + this._className + '.js';
 		console.log(this._apiFileName);
 
 		require('fs').exists(this._apiFileName, function (exists) {
@@ -41,7 +49,7 @@ class NestJSRestRouter extends NestJSRouter {
 			var res = this._response;
 			var req = this._request;
 
-			var data = this._parameters || {};
+			data = this._parameters || {};
 
 			console.log(data);
 

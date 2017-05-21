@@ -1,6 +1,6 @@
 'use strict';
 
-let Controller = require(PHINK_ROOT + 'mvc/controller');
+let Controller = require(global.PHINK_ROOT + 'mvc/controller');
 
 class Index extends Controller {
     constructor(parent, viewName) {

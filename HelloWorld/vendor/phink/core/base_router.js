@@ -15,18 +15,29 @@ class NestJSRouter extends NestJSWebObject {
             this._response = parent.response;
             this._translation = parent.translation;
             this._requestType = parent.requestType;
+            this._className = parent.className;
+            this._parameters = parent.parameters;
         } else {
             super(parent);
             this._request = req;
             this._response = res;
             this._translation = '';
             this._requestType = WEB;
+            this._className = '';
+            this._parameters = null;
         }
 
         this._mimetype = '';
         this._encoding = '';
-        this._parameters = null;
         this._routes = null;
+    }
+
+    get className() {
+        return this._className;
+    }
+
+    get parameters() {
+        return this._parameters;
     }
 
     get requestType() {
@@ -63,6 +74,11 @@ class NestJSRouter extends NestJSWebObject {
                         if (matches !== url) {
                             self._requestType = reqtype;
                             self._translation = matches;
+                            let baseurl = require('url').parse(self._translation, true);
+                            self._className = require('path').basename(baseurl.pathname);
+                            self._parameters = self._parameters || {};
+                            Object.assign(self._parameters, baseurl.query);
+                          
                             return reqtype;
                         }
                     });
