@@ -19,41 +19,37 @@ class NestJSWebApplication extends NWebObject {
 
     static create(url, port, callback) {
         require('http').createServer(function (req, res) {
-            //console.log(req.headers);
             let body = [];
-            let the = this;
+            let self = this;
 
             req.on('error', function (err) {
                 console.error(err);
             }).on('data', function (chunk) {
                 body.push(chunk);
-                // console.log(chunk);
             }).on('end', function () {
 
                 body = Buffer.concat(body).toString();
-                // console.log(body);
                 req.on('error', function (err) {
                     console.error(err);
                 })
 
                 let router = new NBaseRouter(this, req, res);
                 router.match();
-                console.log('reqtype: ' + router.requestType);
-                console.log('translation: ' + router.translation);
 
-                // if (req.url.indexOf("/api/") > -1) {
                 if (router.requestType === 'rest') {
                     router = new NRestRouter(router);
                 } else {
                     router = new NWebRouter(router);
                 }
-                router.parameters = (body !== '') ? JSON.parse(body) : null;
 
-                console.log(req.url);
+                if(body !== '') {
+                    Object.assign(router._parameters, JSON.parse(body));
+                }
+                
                 router.translate(function (exists) {
                     if (exists) {
                         router.dispatch(function (rreq, rres, stream) {
-                            the._headers = rreq.headers;
+                            self._headers = rreq.headers;
                             if (typeof callback === 'function') {
                                 callback(rreq, rres, stream);
                             }

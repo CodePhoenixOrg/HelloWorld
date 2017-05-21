@@ -10,26 +10,26 @@ class NestJSRestRouter extends NestJSRouter {
 
 	translate(callback) {
 
-		if (this.translation === '') {
-			
--		  var qstring = this._request.url.replace(/\/api\//, '');
- -		var qParts = qstring.split('/');
- -		this._className = qParts.shift();
-			
- -		var value = qParts.shift();
-			
+		if (this._translation === '') {
+
+			var qstring = this._request.url.replace(/\/api\//, '');
+			var qParts = qstring.split('/');
+			this._className = qParts.shift();
+
+			var value = qParts.shift();
+
 			var parameter = {};
 			parameter[this._className] = value;
-			
-			if(parameter !== undefined) {
-			this._parameters = this._parameters || {};
-			Object.assign(this._parameters, parameter);
-				
+
+			if (parameter !== undefined) {
+				this._parameters = this._parameters || {};
+				Object.assign(this._parameters, parameter);
+
 			}
-                          			
+
 		}
 
-		this._apiFileName = global.APP_ROOT + 'rest' + global.DIRECTORY_SEPARATOR  + this._className + '.js';
+		this._apiFileName = global.APP_ROOT + 'rest' + global.DIRECTORY_SEPARATOR + this._className + '.js';
 		console.log(this._apiFileName);
 
 		require('fs').exists(this._apiFileName, function (exists) {
@@ -68,7 +68,10 @@ class NestJSRestRouter extends NestJSRouter {
 			fqObject[method](function (data) {
 				//res.statusCode = 200;
 				//res.setHeader('Content-Type', 'application/json');
-				res.writeHead(200, { 'Content-Type': 'application/json', 'charset': 'utf-8' });
+				res.writeHead(200, {
+					'Content-Type': 'application/json',
+					'charset': 'utf-8'
+				});
 				var stream = JSON.stringify(data);
 				if (typeof callback === 'function') {
 					callback(req, res, stream);

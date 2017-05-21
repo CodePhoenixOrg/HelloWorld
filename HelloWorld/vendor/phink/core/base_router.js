@@ -7,7 +7,6 @@ const REST = 'rest';
 
 class NestJSRouter extends NestJSWebObject {
 
-
     constructor(parent, req, res) {
         if (parent instanceof NestJSRouter) {
             super(parent.parent);
@@ -15,8 +14,12 @@ class NestJSRouter extends NestJSWebObject {
             this._response = parent.response;
             this._translation = parent.translation;
             this._requestType = parent.requestType;
-            this._className = parent.className;
             this._parameters = parent.parameters;
+            this._className = parent.className;
+            console.log("PARAMETERS PARENT");
+            console.log({'parent': [parent.request.method, parent.parameters, parent.translation, parent.requestType, parent.className]});
+            console.log("END PARAMETERS PARENT");
+
         } else {
             super(parent);
             this._request = req;
@@ -27,6 +30,8 @@ class NestJSRouter extends NestJSWebObject {
             this._parameters = null;
         }
 
+
+
         this._mimetype = '';
         this._encoding = '';
         this._routes = null;
@@ -34,10 +39,6 @@ class NestJSRouter extends NestJSWebObject {
 
     get className() {
         return this._className;
-    }
-
-    get parameters() {
-        return this._parameters;
     }
 
     get requestType() {
@@ -56,11 +57,27 @@ class NestJSRouter extends NestJSWebObject {
         return this._translation;
     }
 
+    get parameters() {
+        return this._parameters;
+    }
+    set parameters(parameters) {
+        this._parameters = parameters;
+    }
+
+    get mimeType() {
+        return this._mimetype;
+    }
+
+    get encoding() {
+        return this._encoding;
+    }
+
     match() {
         let result = 'web';
+        let self = this;
 
         if (this.routes) {
-            let self = this;
+
             Object.keys(this._routes).forEach(function (reqtype) {
                 var methods = self._routes[reqtype];
                 var method = self._request.method.toLowerCase();
@@ -78,7 +95,7 @@ class NestJSRouter extends NestJSWebObject {
                             self._className = require('path').basename(baseurl.pathname);
                             self._parameters = self._parameters || {};
                             Object.assign(self._parameters, baseurl.query);
-                          
+
                             return reqtype;
                         }
                     });
@@ -87,7 +104,7 @@ class NestJSRouter extends NestJSWebObject {
             });
         }
 
-        if(this._translation === '') {
+        if (this._translation === '') {
             this._requestType = 'web';
             result = 'web';
         }
@@ -117,24 +134,9 @@ class NestJSRouter extends NestJSWebObject {
         return _routes;
     }
 
-    get parameters() {
-        return this._parameters;
-    }
-    set parameters(parameters) {
-        this._parameters = parameters;
-    }
+    translate(callback) {}
 
-    get mimeType() {
-        return this._mimetype;
-    }
-
-    get encoding() {
-        return this._encoding;
-    }
-
-    translate(callback) { }
-
-    dispatch(callback) { }
+    dispatch(callback) {}
 }
 
 module.exports = NestJSRouter;
