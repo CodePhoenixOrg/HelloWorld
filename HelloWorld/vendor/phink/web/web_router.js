@@ -15,7 +15,7 @@ class NestJSWebRouter extends NestJSRouter {
 
         let url = (this._className !== '') ? this._className : (this._request.url === '/') ? 'index.html' : this._request.url;
         let baseurl = require('url').parse(url);
-        this._viewName = baseurl.pathname;
+        this._viewName = require('path').basename(baseurl.pathname);
         this._extension = require('path').extname(this._viewName);
 
         let dotoffset = this._viewName.lastIndexOf('.');
@@ -35,7 +35,7 @@ class NestJSWebRouter extends NestJSRouter {
         this._encoding = mime[1];
         this._mimetype = mime[0];
 
-        this._filePath = (this._extension === '.html') ? global.APP_ROOT + 'views/' + url : (this._extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? global.PHINK_ROOT + 'phink.js' : global.DOCUMENT_ROOT + url;
+        this._filePath = (this._extension === '.html') ? global.APP_VIEWS + url : (this._extension === '.js' && url.lastIndexOf('/phink.js') > -1) ? global.PHINK_ROOT + 'phink.js' : global.DOCUMENT_ROOT + url;
 
         require('fs').exists(this._filePath, function (exists) {
             callback(exists);
@@ -50,8 +50,8 @@ class NestJSWebRouter extends NestJSRouter {
         let req = this._request;
         let mime = this._mimetype;
 
-        if (this._extension === '.html') {
-            let Controller = require(global.APP_CONTROLLERS + this._viewName + '.js');
+        if (this._extension === '.html' && require('fs').existsSync(global.APP_CONTROLLERS + this._viewName + '.js')) {
+            let Controller = require(global.APP_CONTROLLERS + this._viewName);
             let ctrl = new Controller(this, this._viewName);
             ctrl.render(function (stream) {
                 res.writeHead(200, {
@@ -59,10 +59,9 @@ class NestJSWebRouter extends NestJSRouter {
                 });
                 callback(req, res, stream);
             });
-
             return true;
         }
-
+ 
         require('./web_object').include(this._filePath, encoding, function (err, stream) {
             if (!err) {
 

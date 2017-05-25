@@ -16,9 +16,9 @@ class NestJSRouter extends NestJSWebObject {
             this._requestType = parent.requestType;
             this._parameters = parent.parameters;
             this._className = parent.className;
-            console.log("PARAMETERS PARENT");
-            console.log({'parent': [parent.request.method, parent.parameters, parent.translation, parent.requestType, parent.className]});
-            console.log("END PARAMETERS PARENT");
+            // console.log("PARAMETERS PARENT");
+            // console.log({'parent': [parent.request.method, parent.parameters, parent.translation, parent.requestType, parent.className]});
+            // console.log("END PARAMETERS PARENT");
 
         } else {
             super(parent);
