@@ -1,2 +1,0 @@
-requête Google "node js send html instead of css"
-http://stackoverflow.com/questions/28822034/simple-node-js-server-that-sends-htmlcss-as-response
